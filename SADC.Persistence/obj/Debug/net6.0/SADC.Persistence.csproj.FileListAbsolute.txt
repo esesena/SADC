@@ -1,0 +1,17 @@
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.csproj.AssemblyReference.cache
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.AssemblyInfoInputs.cache
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.AssemblyInfo.cs
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.csproj.CoreCompileInputs.cache
+C:\db\SADC\SADC.Persistence\bin\Debug\net6.0\SADC.Persistence.deps.json
+C:\db\SADC\SADC.Persistence\bin\Debug\net6.0\SADC.Persistence.runtimeconfig.json
+C:\db\SADC\SADC.Persistence\bin\Debug\net6.0\SADC.Persistence.dll
+C:\db\SADC\SADC.Persistence\bin\Debug\net6.0\SADC.Persistence.pdb
+C:\db\SADC\SADC.Persistence\bin\Debug\net6.0\SADC.Domain.dll
+C:\db\SADC\SADC.Persistence\bin\Debug\net6.0\SADC.Domain.pdb
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.csproj.CopyComplete
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.dll
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\refint\SADC.Persistence.dll
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.pdb
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\SADC.Persistence.genruntimeconfig.cache
+C:\db\SADC\SADC.Persistence\obj\Debug\net6.0\ref\SADC.Persistence.dll

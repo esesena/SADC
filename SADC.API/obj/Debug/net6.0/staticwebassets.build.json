@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "gLSfuthZnxcRZ020MyX9Zjdfy0JX8TxlLUPNE4Ee9fg=",
+  "Source": "SADC.API",
+  "BasePath": "_content/SADC.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

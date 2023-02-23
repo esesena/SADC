@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\SADC.API.props" />
+</Project>
