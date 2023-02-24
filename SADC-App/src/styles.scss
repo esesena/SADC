@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+.bg-sidbar{
+    position: relative;
+
+    &::before{
+        content: '';
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        background-image: url('assets/img/brand/sidebar/corn-plantation.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.25;
+    }
+}

@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen();
 var connection = builder.Configuration.GetConnectionString("Default");
 
 builder.Services.AddDbContext<SADCContext>(
-                context => context.UseMySql(connection, ServerVersion.Parse("8.0.27-mysql")));
+                context => context.UseMySql(connection, ServerVersion.Parse("8.0.32-mysql")));
 
 builder.Services.AddIdentityCore<User>(options =>
 {

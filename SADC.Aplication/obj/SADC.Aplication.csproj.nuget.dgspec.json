@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\db\\SADC\\SADC.Aplication\\SADC.Aplication.csproj": {}
+    "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj": {}
   },
   "projects": {
-    "C:\\db\\SADC\\SADC.Aplication\\SADC.Aplication.csproj": {
+    "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\db\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
+        "projectUniqueName": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
         "projectName": "SADC.Aplication",
-        "projectPath": "C:\\db\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
-        "packagesPath": "C:\\Users\\Scarabeli\\.nuget\\packages\\",
-        "outputPath": "C:\\db\\SADC\\SADC.Aplication\\obj\\",
+        "projectPath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
+        "packagesPath": "C:\\Users\\elana\\.nuget\\packages\\",
+        "outputPath": "C:\\Systems\\SADC\\SADC.Aplication\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Scarabeli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\elana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,11 +33,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
-                "projectPath": "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj"
+              "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
+                "projectPath": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj"
               },
-              "C:\\db\\SADC\\SADC.Persistence\\SADC.Persistence.csproj": {
-                "projectPath": "C:\\db\\SADC\\SADC.Persistence\\SADC.Persistence.csproj"
+              "C:\\Systems\\SADC\\SADC.Persistence\\SADC.Persistence.csproj": {
+                "projectPath": "C:\\Systems\\SADC\\SADC.Persistence\\SADC.Persistence.csproj"
               }
             }
           }
@@ -81,21 +85,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
+    "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj",
+        "projectUniqueName": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj",
         "projectName": "SADC.Domain",
-        "projectPath": "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj",
-        "packagesPath": "C:\\Users\\Scarabeli\\.nuget\\packages\\",
-        "outputPath": "C:\\db\\SADC\\SADC.Domain\\obj\\",
+        "projectPath": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj",
+        "packagesPath": "C:\\Users\\elana\\.nuget\\packages\\",
+        "outputPath": "C:\\Systems\\SADC\\SADC.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Scarabeli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\elana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -143,21 +151,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\db\\SADC\\SADC.Persistence\\SADC.Persistence.csproj": {
+    "C:\\Systems\\SADC\\SADC.Persistence\\SADC.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\db\\SADC\\SADC.Persistence\\SADC.Persistence.csproj",
+        "projectUniqueName": "C:\\Systems\\SADC\\SADC.Persistence\\SADC.Persistence.csproj",
         "projectName": "SADC.Persistence",
-        "projectPath": "C:\\db\\SADC\\SADC.Persistence\\SADC.Persistence.csproj",
-        "packagesPath": "C:\\Users\\Scarabeli\\.nuget\\packages\\",
-        "outputPath": "C:\\db\\SADC\\SADC.Persistence\\obj\\",
+        "projectPath": "C:\\Systems\\SADC\\SADC.Persistence\\SADC.Persistence.csproj",
+        "packagesPath": "C:\\Users\\elana\\.nuget\\packages\\",
+        "outputPath": "C:\\Systems\\SADC\\SADC.Persistence\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Scarabeli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\elana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -172,8 +184,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
-                "projectPath": "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj"
+              "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
+                "projectPath": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj"
               }
             }
           }
@@ -204,7 +216,7 @@
             },
             "MySql.Data": {
               "target": "Package",
-              "version": "[8.0.27, )"
+              "version": "[8.0.32, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
@@ -227,7 +239,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj": {}
+    "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj": {}
   },
   "projects": {
-    "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
+    "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj",
+        "projectUniqueName": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj",
         "projectName": "SADC.Domain",
-        "projectPath": "C:\\db\\SADC\\SADC.Domain\\SADC.Domain.csproj",
-        "packagesPath": "C:\\Users\\Scarabeli\\.nuget\\packages\\",
-        "outputPath": "C:\\db\\SADC\\SADC.Domain\\obj\\",
+        "projectPath": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj",
+        "packagesPath": "C:\\Users\\elana\\.nuget\\packages\\",
+        "outputPath": "C:\\Systems\\SADC\\SADC.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Scarabeli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\elana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -62,7 +66,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

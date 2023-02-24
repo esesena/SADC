@@ -26,18 +26,17 @@ namespace SADC.Application
             _farmPersist = farmPersist;
             _mapper = mapper;
         }
-        public async Task<FarmDto> AddFarms(int userId, FarmDto model)
+        public async Task<FarmDto> AddFarms(FarmDto model)
         {
             try
             {
                 var farm = _mapper.Map<Farm>(model);
-                farm.UserId = userId;
 
                 _geralPersist.Add<Farm>(farm);
 
                 if (await _geralPersist.SaveChangesAsync())
                 {
-                    var farmRetorno = await _farmPersist.GetFarmByIdAsync(userId, farm.Id);
+                    var farmRetorno = await _farmPersist.GetFarmByIdAsync(farm.Id);
 
                     return _mapper.Map<FarmDto>(farmRetorno);
                 }
@@ -49,15 +48,14 @@ namespace SADC.Application
             }
         }
 
-        public async Task<FarmDto> UpdateFarm(int userId, int farmId, FarmDto model)
+        public async Task<FarmDto> UpdateFarm(int farmId, FarmDto model)
         {
             try
             {
-                var farm = await _farmPersist.GetFarmByIdAsync(userId, farmId);
+                var farm = await _farmPersist.GetFarmByIdAsync(farmId);
                 if (farm == null) return null;
 
                 model.Id = farm.Id;
-                model.UserId = userId;
 
                 _mapper.Map(model, farm);
 
@@ -65,7 +63,7 @@ namespace SADC.Application
 
                 if (await _geralPersist.SaveChangesAsync())
                 {
-                    var farmRetorno = await _farmPersist.GetFarmByIdAsync(userId, farm.Id);
+                    var farmRetorno = await _farmPersist.GetFarmByIdAsync(farm.Id);
 
                     return _mapper.Map<FarmDto>(farmRetorno);
                 }
@@ -77,11 +75,11 @@ namespace SADC.Application
             }
         }
 
-        public async Task<bool> DeleteFarm(int userId, int farmId)
+        public async Task<bool> DeleteFarm(int farmId)
         {
             try
             {
-                var farm = await _farmPersist.GetFarmByIdAsync(userId, farmId);
+                var farm = await _farmPersist.GetFarmByIdAsync(farmId);
                 if (farm == null) throw new Exception("Fazenda para delete não encontrado.");
 
                 _geralPersist.Delete<Farm>(farm);
@@ -93,11 +91,11 @@ namespace SADC.Application
             }
         }
 
-        public async Task<PageList<FarmDto>> GetAllFarmsAsync(int userId, PageParams pageParams)
+        public async Task<PageList<FarmDto>> GetAllFarmsAsync(PageParams pageParams)
         {
             try
             {
-                var farms = await _farmPersist.GetAllFarmsAsync(userId, pageParams);
+                var farms = await _farmPersist.GetAllFarmsAsync(pageParams);
                 if (farms == null) return null;
 
                 var resultado = _mapper.Map<PageList<FarmDto>>(farms);
@@ -115,11 +113,11 @@ namespace SADC.Application
             }
         }
 
-        public async Task<FarmDto> GetFarmByIdAsync(int userId, int farmId)
+        public async Task<FarmDto> GetFarmByIdAsync(int farmId)
         {
             try
             {
-                var farm = await _farmPersist.GetFarmByIdAsync(userId, farmId);
+                var farm = await _farmPersist.GetFarmByIdAsync(farmId);
                 if (farm == null) return null;
 
                 var resultado = _mapper.Map<FarmDto>(farm);

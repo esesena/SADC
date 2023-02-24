@@ -10,11 +10,11 @@ namespace SADC.Application.Contracts
 {
     public interface IFarmService
     {
-        Task<FarmDto> AddFarms(int userId, FarmDto model);
-        Task<FarmDto> UpdateFarm(int userId, int farmId, FarmDto model);
-        Task<bool> DeleteFarm(int userId, int farmId);
+        Task<FarmDto> AddFarms(FarmDto model);
+        Task<FarmDto> UpdateFarm(int farmId, FarmDto model);
+        Task<bool> DeleteFarm(int farmId);
 
-        Task<PageList<FarmDto>> GetAllFarmsAsync(int userId, PageParams pageParams);
-        Task<FarmDto> GetFarmByIdAsync(int userId, int farmId);
+        Task<PageList<FarmDto>> GetAllFarmsAsync(PageParams pageParams);
+        Task<FarmDto> GetFarmByIdAsync(int farmId);
     }
 }

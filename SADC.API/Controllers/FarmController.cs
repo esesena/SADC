@@ -30,7 +30,7 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var farms = await _farmService.GetAllFarmsAsync(User.GetUserId(), pageParams);
+                var farms = await _farmService.GetAllFarmsAsync(pageParams);
                 if (farms == null) return NoContent();
 
                 Response.AddPagination(farms.CurrentPage, farms.PageSize, farms.TotalCount, farms.TotalPages);
@@ -48,7 +48,7 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var farm = await _farmService.GetFarmByIdAsync(User.GetUserId(), id);
+                var farm = await _farmService.GetFarmByIdAsync(id);
                 if (farm == null) return NoContent();
 
                 return Ok(farm);
@@ -65,7 +65,7 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var farm = await _farmService.AddFarms(User.GetUserId(), model);
+                var farm = await _farmService.AddFarms(model);
                 if (farm == null) return NoContent();
 
                 return Ok(farm);
@@ -83,7 +83,7 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var farm = await _farmService.GetFarmByIdAsync(User.GetUserId(), farmId);
+                var farm = await _farmService.GetFarmByIdAsync(farmId);
                 if (farm == null) return NoContent();
 
                 var file = Request.Form.Files[0];
@@ -92,7 +92,7 @@ namespace SADC.API.Controllers
                     _util.DeleteImage(farm.ImageURL, _destino);
                     farm.ImageURL = await _util.SaveImage(file, _destino);
                 }
-                var FarmRetorno = await _farmService.UpdateFarm(User.GetUserId(), farmId, farm);
+                var FarmRetorno = await _farmService.UpdateFarm(farmId, farm);
 
                 return Ok(FarmRetorno);
             }
@@ -109,7 +109,7 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var farm = await _farmService.UpdateFarm(User.GetUserId(), id, model);
+                var farm = await _farmService.UpdateFarm(id, model);
                 if (farm == null) return NoContent();
 
                 return Ok(farm);
@@ -127,11 +127,11 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var farm = await _farmService.GetFarmByIdAsync(User.GetUserId(), id);
+                var farm = await _farmService.GetFarmByIdAsync(id);
                 if (farm == null) return NoContent();
 
 
-                if (await _farmService.DeleteFarm(User.GetUserId(), id))
+                if (await _farmService.DeleteFarm(id))
                 {
                     _util.DeleteImage(farm.ImageURL, _destino);
                     return Ok(new { message = "Deletado" });

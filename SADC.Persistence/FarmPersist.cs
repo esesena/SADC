@@ -22,26 +22,25 @@ namespace SADC.Persistence
             _context = context;
         }
 
-        public async Task<PageList<Farm>> GetAllFarmsAsync(int userId, PageParams pageParams)
+        public async Task<PageList<Farm>> GetAllFarmsAsync(PageParams pageParams)
         {
             IQueryable<Farm> query = _context.Farms
                             .Include(c => c.Plots);
 
             query = query.AsNoTracking()
-                         .Where(e => (e.Name.ToLower().Contains(pageParams.Term.ToLower())) &&
-                         e.UserId == userId)
+                         .Where(e => e.Name.ToLower().Contains(pageParams.Term.ToLower()))
             .OrderBy(e => e.Id);
 
             return await PageList<Farm>.CreateAsync(query, pageParams.PageNumber, pageParams.pageSize);
         }
 
-        public async Task<Farm> GetFarmByIdAsync(int userId, int farmId)
+        public async Task<Farm> GetFarmByIdAsync(int farmId)
         {
             IQueryable<Farm> query = _context.Farms
                             .Include(c => c.Plots);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
-            .Where(e => e.Id == farmId && e.UserId == userId);
+            .Where(e => e.Id == farmId);
 
             return await query.FirstOrDefaultAsync();
         }

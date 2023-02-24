@@ -10,3 +10,15 @@ C:\db\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.dll
 C:\db\SADC\SADC.Domain\obj\Debug\net6.0\refint\SADC.Domain.dll
 C:\db\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.pdb
 C:\db\SADC\SADC.Domain\obj\Debug\net6.0\ref\SADC.Domain.dll
+C:\Systems\SADC\SADC.Domain\bin\Debug\net6.0\SADC.Domain.deps.json
+C:\Systems\SADC\SADC.Domain\bin\Debug\net6.0\SADC.Domain.dll
+C:\Systems\SADC\SADC.Domain\bin\Debug\net6.0\SADC.Domain.pdb
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.csproj.AssemblyReference.cache
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.AssemblyInfoInputs.cache
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.AssemblyInfo.cs
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.csproj.CoreCompileInputs.cache
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.dll
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\refint\SADC.Domain.dll
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\SADC.Domain.pdb
+C:\Systems\SADC\SADC.Domain\obj\Debug\net6.0\ref\SADC.Domain.dll
