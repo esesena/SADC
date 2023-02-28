@@ -16,7 +16,7 @@ namespace SADC.API.Controllers
         private readonly IFarmService _farmService;
         private readonly IUtil _util;
         private readonly IAccountService _accountService;
-        private readonly string _destino = "FarmImage";
+        private readonly string _destiny = "FarmImage";
 
         public FarmController(IFarmService farmService, IUtil util, IAccountService accountService)
         {
@@ -89,8 +89,8 @@ namespace SADC.API.Controllers
                 var file = Request.Form.Files[0];
                 if (file.Length > 0)
                 {
-                    _util.DeleteImage(farm.ImageURL, _destino);
-                    farm.ImageURL = await _util.SaveImage(file, _destino);
+                    _util.DeleteImage(farm.ImageURL, _destiny);
+                    farm.ImageURL = await _util.SaveImage(file, _destiny);
                 }
                 var FarmRetorno = await _farmService.UpdateFarm(farmId, farm);
 
@@ -133,7 +133,7 @@ namespace SADC.API.Controllers
 
                 if (await _farmService.DeleteFarm(id))
                 {
-                    _util.DeleteImage(farm.ImageURL, _destino);
+                    _util.DeleteImage(farm.ImageURL, _destiny);
                     return Ok(new { message = "Deletado" });
                 }
                 else

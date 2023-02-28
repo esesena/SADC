@@ -9,7 +9,7 @@ namespace SADC.API.Helpers
 {
     public interface IUtil
     {
-        Task<string> SaveImage(IFormFile imageFile, string destino);
-        void DeleteImage(string imageName, string destino);
+        Task<string> SaveImage(IFormFile imageFile, string destiny);
+        void DeleteImage(string imageName, string destiny);
     }
 }

@@ -9,15 +9,15 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
-    { path: '/fazenda', title: 'Fazenda',  icon: 'ni-map-big text-green', class: '' },
-    { path: '/funcionarios', title: 'Funcionários',  icon: 'fa-solid fa-person-digging text-green', class: '' },
-    { path: '/plantacoes', title: 'Plantações',  icon: 'ni-map-big text-green', class: '' },
+    { path: '/fazenda', title: 'Fazendas',  icon: 'ni-map-big text-green', class: '' },
+    { path: '/funcionarios', title: 'Funcionários',  icon: 'fa-solid fa-users text-red', class: '' },
+    { path: '/plantacoes', title: 'Plantações',  icon: 'fa-solid fa-person-digging text-info', class: '' },
     { path: '/sementes', title: 'Sementes',  icon: 'fa-solid fa-seedling text-blue', class: '' },
+    { path: '/user-profile', title: 'Perfil do Usuário',  icon:'ni-single-02 text-yellow', class: '' },
     { path: '/icons', title: 'Icons',  icon:'ni-planet text-blue', class: '' },
     { path: '/maps', title: 'Maps',  icon:'ni-pin-3 text-orange', class: '' },
-    { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
     { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
-    { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
+    // { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
     { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }
 ];
 

@@ -27,7 +27,7 @@ export class FarmDetailsComponent implements OnInit {
   form: FormGroup;
   saveState = "post";
   file: File;
-  imageURL = "assets/img/angular.jpg";
+  imageURL = 'assets/img/brand/upload.png';
   lastPlot = { id: 0, name: "", indice: 0 };
 
   get editMode(): boolean {
@@ -108,6 +108,7 @@ export class FarmDetailsComponent implements OnInit {
       ],
       location: ["", Validators.required],
       size: ["", Validators.required],
+      imageURL: [''],
       plots: this.fb.array([]),
     });
   }
@@ -172,6 +173,30 @@ export class FarmDetailsComponent implements OnInit {
           }
         );
     }
+  }
+
+  onFileChange(ev: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (event: any) => this.imageURL = event.target.result;
+
+    this.file = ev.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImage();
+  }
+
+  uploadImage(): void {
+    this.farmService.postUpload(this.farmId, this.file).subscribe(
+      () => {
+        this.loadFarm();
+        this.toastr.success('Imagem atualizada com Sucesso', 'Sucesso!');
+      },
+      (error: any) => {
+        this.toastr.error('Erro ao fazer upload de imagem', 'Erro!');
+        console.log(error);
+      }
+    );
   }
 
   // public removePlot(template: TemplateRef<any>, indice: number): void {

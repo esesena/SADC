@@ -1,3 +1,4 @@
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 /* You can add global styles to this file, and also import other style files */
 
 .bg-sidbar{
@@ -16,4 +17,11 @@
         background-repeat: no-repeat;
         opacity: 0.25;
     }
+    
+}
+
+.farm-image{
+    width: 100px;
+    height: auto;
+    margin: 2px;
 }

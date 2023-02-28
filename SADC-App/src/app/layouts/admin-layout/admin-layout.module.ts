@@ -1,7 +1,9 @@
+import { NgbModalConfig, NgbModalRef, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './../../components/navbar/navbar.component';
+import { CardComponent } from './../../components/card/card.component';
 import { EmployeeComponent } from './../../pages/employee/employee.component';
 import { PlantingComponent } from './../../pages/planting/planting.component';
 import { SeedComponent } from './../../pages/seed/seed.component';
-import { AccountService } from './../../services/account.service';
 import { JwtInterceptor } from './../../interceptors/jwt.interceptor';
 import { FarmDetailsComponent } from './../../pages/farm/farm-details/farm-details.component';
 import { FarmListComponent } from './../../pages/farm/farm-list/farm-list.component';
@@ -11,9 +13,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { ClipboardModule } from 'ngx-clipboard';
-import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
@@ -31,8 +34,10 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     NgbModule,
     ClipboardModule,
-    NgbPaginationModule,
     ReactiveFormsModule,
+    NgbPaginationModule,
+    GoogleMapsModule,
+    NgbCollapseModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
@@ -52,6 +57,8 @@ import { ToastrModule } from 'ngx-toastr';
     SeedComponent,
     PlantingComponent,
     EmployeeComponent,
+    CardComponent,
+    NavbarComponent,
   ],
   providers: [
     FarmService,

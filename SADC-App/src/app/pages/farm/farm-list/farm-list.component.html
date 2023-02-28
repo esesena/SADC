@@ -8,6 +8,7 @@
           class="btn btn-outline-secondary"
           routerLink="/fazenda/detalhe"
         >
+        <i class="fa-solid fa-plus-circle"></i>
           Nova Fazenda
         </button>
       </div>
@@ -15,23 +16,38 @@
         <table class="table align-items-center table-flush">
           <thead class="thead-light">
             <tr>
-              <th scope="col">Imagem</th>
+              <th scope="col">
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-sm"
+                  (click)="changeImage()"
+                >
+                  <i
+                    class="{{ !showImage ? 'fa fa-eye' : 'fa fa-eye-slash' }}"
+                  ></i>
+                </button>
+                {{ !showImage ? "exibir" : "ocultar" }}
+              </th>
               <th scope="col">Nome</th>
               <th scope="col">Localização</th>
               <th scope="col">Área (ha)</th>
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody *ngIf="farms && farms.length">
+          <!-- <tbody *ngIf="farms && farms.length"> -->
+            <tbody>
             <tr
-              *ngFor="let farm of farms"
+              *ngFor="let farm of farms | slice: (page-1) * pageSize : page * pageSize"
               (click)="detalheFarm(farm.id)"
               style="cursor: pointer"
             >
               <td>
-                <div class="media align-items-center">
-                  {{ farm.imageURL }}
-                </div>
+                <img
+                  [ngbCollapse]="!showImage"
+                  [isAnimated]="true"
+                  [src]="revelImage(farm.imageURL)"
+                  class="farm-image"
+                />
               </td>
               <td>{{ farm.name }}</td>
               <td>
@@ -41,7 +57,16 @@
                 {{ farm.size }}
               </td>
               <td class="text-right">
-                <div ngbDropdown placement="bottom-right">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-lg d-flex align-items-center justify-content-center"
+                  tooltip="Excluir"
+                  style="width: 20px; height: 30px"
+                  (click)="openModal($event, template, farm.id)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+                <!-- <div ngbDropdown placement="bottom-right">
                   <a
                     class="btn btn-sm btn-icon-only text-light"
                     ngbDropdownToggle
@@ -62,7 +87,7 @@
                       >Something else here</a
                     >
                   </div>
-                </div>
+                </div> -->
               </td>
             </tr>
           </tbody>
@@ -72,11 +97,7 @@
       <div class="card-footer py-4">
         <nav aria-label="...">
           <ul class="pagination justify-content-end mb-0">
-            <ngb-pagination
-              [(page)]="page"
-              [pageSize]="pageSize"
-              [collectionSize]="farms.length"
-            ></ngb-pagination>
+
             <!-- <li class="page-item disabled">
                 <a class="page-link" href="javascript:void(0)" tabindex="-1">
                   <i class="fas fa-angle-left"></i>

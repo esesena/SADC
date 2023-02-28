@@ -31,4 +31,8 @@
     <ProjectReference Include="..\SADC.Persistence\SADC.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\FarmImage\" />
+  </ItemGroup>
+
 </Project>

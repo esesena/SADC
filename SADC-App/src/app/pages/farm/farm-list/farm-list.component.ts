@@ -1,10 +1,9 @@
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 
 import { environment } from './../../../../environments/environment';
 import { FarmService } from './../../../services/farm.service';
@@ -23,22 +22,22 @@ export class FarmListComponent implements OnInit {
   public farmId = 0;
   public pagination = {} as Pagination;
 
-  public larguraImagem = 150;
+  public larguraImagem = 10;
   public margemImagem = 2;
-  public exibirImagem = true;
+  public showImage = true;
 
   termoBuscaChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private farmService: FarmService,
-    // private modalService: BsModalService,
+    // private modalRef: NgbModalRef,
     private toastr: ToastrService,
     private router: Router) { }
 
     public ngOnInit(): void {
       this.pagination = {
         currentPage: 1,
-        itemsPerPage: 50,
+        itemsPerPage: 3,
         totalItems: 1,
       } as Pagination;
 
@@ -49,18 +48,17 @@ export class FarmListComponent implements OnInit {
   pageSize = this.pagination.itemsPerPage
   collectionSize = this.pagination.totalItems
   
-    public alterarImagem(): void {
-      this.exibirImagem = !this.exibirImagem;
+    public changeImage(): void {
+      this.showImage = !this.showImage;
     }
   
-    public showImage(imageURL: string): string {
+    public revelImage(imageURL: string): string {
       return imageURL !== ''
         ? `${environment.apiURL}resources/images/${imageURL}`
-        : 'assets/img/semImagem.jpeg';
+        : 'assets/img/brand/semImagem.jpeg';
     }
   
     public loadFarms(): void {
-  debugger
       this.farmService
         .getFarms(this.pagination.currentPage, this.pagination.itemsPerPage)
         .subscribe(
@@ -79,13 +77,13 @@ export class FarmListComponent implements OnInit {
       this.farmId = farmId;
     }
   
-    public pageChanged(event): void {
-      this.pagination.currentPage = event.page;
+    public pageChange(page: number): void {
+      this.pagination.currentPage = page;
       this.loadFarms();
     }
   
     // confirm(): void {
-    //   this.modalRef.hide();
+    //   this.modalRef.hidden;
   
     //   this.farmService
     //     .deleteFarm(this.farmId)
@@ -110,7 +108,7 @@ export class FarmListComponent implements OnInit {
     // }
   
     // decline(): void {
-    //   this.modalRef.hide();
+    //   this.modalRef.hidden;
     // }
   
     detalheFarm(id: number): void {
