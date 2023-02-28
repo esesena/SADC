@@ -1,5 +1,5 @@
 import { AccountService } from './../../services/account.service';
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
@@ -32,6 +32,11 @@ export class NavbarComponent implements OnInit {
         }
     }
     return 'Dashboard';
+  }
+
+  logout(): void {
+    this.accountService.logout();
+    this.router.navigateByUrl('/user/login');
   }
 
 }

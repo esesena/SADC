@@ -25,8 +25,6 @@ namespace SADC.Domain
         //[Required(ErrorMessage = "{0} é obrigatório!")]
         public double Size { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
         public IEnumerable<EmployeesFarms> EmployeesFarms { get; set; }
 
 

@@ -9,9 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SADC';
+  isAuthenticated = false;
+
   constructor(public accountService: AccountService){}
 
   ngOninit(): void {
+    if (this.accountService.currentUser$ !== null) {
+      this.isAuthenticated = true;
+    }
+
     this.setCurrentUser();
   }
 

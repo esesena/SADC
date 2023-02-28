@@ -1,1 +1,3 @@
+<app-default-layout *ngIf="!isAuthenticated"></app-default-layout>
+<app-admin-layout *ngIf="isAuthenticated"></app-admin-layout>
 <router-outlet></router-outlet>

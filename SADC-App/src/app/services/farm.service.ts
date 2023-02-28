@@ -10,13 +10,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FarmService {
-  baseURL = environment.apiURL + 'api/fazendas';
+  baseURL = environment.apiURL + 'api/farm';
 
   constructor(private http: HttpClient) { }
 
   public getFarms(page?: number, itemsPerPage?: number, term?: string): Observable<PaginatedResult<Farm[]>> {
     const paginatedResult: PaginatedResult<Farm[]> = new PaginatedResult<Farm[]>();
-
+debugger
     let params = new HttpParams;
 
     if (page != null && itemsPerPage != null) {

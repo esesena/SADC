@@ -1,11 +1,11 @@
 import { Farm } from './Farm';
 
 export interface Plot {
-    Id: number;
-    Name: string;
-    Location: string;
-    Size: number;
-    SoilType: string;
-    FarmId: number;
-    Farm: Farm;
+    id: number;
+    name: string;
+    location: string;
+    size: number;
+    soilType: string;
+    farmId: number;
+    farm: Farm;
 }

@@ -8,7 +8,5 @@ export interface Farm {
     location: string; 
     imageURL: string; 
     size: number; 
-    userId: number; 
-    user: User; 
     plots: Plot[]; 
 }

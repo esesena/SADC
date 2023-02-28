@@ -1,16 +1,21 @@
-import { environment } from './../../../../environments/environment.prod';
 import { Router } from '@angular/router';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
+import { environment } from './../../../../environments/environment';
 import { FarmService } from './../../../services/farm.service';
 import { Pagination, PaginatedResult } from './../../../models/Pagination';
 import { Farm } from './../../../models/Farm';
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-farm-list',
   templateUrl: './farm-list.component.html',
-  styleUrls: ['./farm-list.component.scss']
+  styleUrls: ['./farm-list.component.scss'],
+
 })
 export class FarmListComponent implements OnInit {
 
@@ -24,19 +29,25 @@ export class FarmListComponent implements OnInit {
 
   termoBuscaChanged: Subject<string> = new Subject<string>();
 
-  constructor(    private farmService: FarmService,
+  constructor(
+    private farmService: FarmService,
+    // private modalService: BsModalService,
     private toastr: ToastrService,
     private router: Router) { }
 
     public ngOnInit(): void {
       this.pagination = {
         currentPage: 1,
-        itemsPerPage: 3,
+        itemsPerPage: 50,
         totalItems: 1,
       } as Pagination;
-  
+
       this.loadFarms();
     }
+
+  page = this.pagination.currentPage
+  pageSize = this.pagination.itemsPerPage
+  collectionSize = this.pagination.totalItems
   
     public alterarImagem(): void {
       this.exibirImagem = !this.exibirImagem;
@@ -49,7 +60,7 @@ export class FarmListComponent implements OnInit {
     }
   
     public loadFarms(): void {
-  
+  debugger
       this.farmService
         .getFarms(this.pagination.currentPage, this.pagination.itemsPerPage)
         .subscribe(
@@ -66,7 +77,6 @@ export class FarmListComponent implements OnInit {
     openModal(event: any, template: TemplateRef<any>, farmId: number): void {
       event.stopPropagation();
       this.farmId = farmId;
-      this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
     }
   
     public pageChanged(event): void {
@@ -74,39 +84,37 @@ export class FarmListComponent implements OnInit {
       this.loadFarms();
     }
   
-    confirm(): void {
-      this.modalRef.hide();
-      this.spinner.show();
+    // confirm(): void {
+    //   this.modalRef.hide();
   
-      this.farmService
-        .deleteEvento(this.eventoId)
-        .subscribe(
-          (result: any) => {
-            if (result.message === 'Deletado') {
-              this.toastr.success(
-                'O Evento foi deletado com Sucesso.',
-                'Deletado!'
-              );
-              this.loadFarms();
-            }
-          },
-          (error: any) => {
-            console.error(error);
-            this.toastr.error(
-              `Erro ao tentar deletar o evento ${this.eventoId}`,
-              'Erro'
-            );
-          }
-        )
-        .add(() => this.spinner.hide());
-    }
+    //   this.farmService
+    //     .deleteFarm(this.farmId)
+    //     .subscribe(
+    //       (result: any) => {
+    //         if (result.message === 'Deletado') {
+    //           this.toastr.success(
+    //             'O Evento foi deletado com Sucesso.',
+    //             'Deletado!'
+    //           );
+    //           this.loadFarms();
+    //         }
+    //       },
+    //       (error: any) => {
+    //         console.error(error);
+    //         this.toastr.error(
+    //           `Erro ao tentar deletar o evento ${this.farmId}`,
+    //           'Erro'
+    //         );
+    //       }
+    //     );
+    // }
   
-    decline(): void {
-      this.modalRef.hide();
-    }
+    // decline(): void {
+    //   this.modalRef.hide();
+    // }
   
-    detalheEvento(id: number): void {
-      this.router.navigate([`eventos/detalhe/${id}`]);
+    detalheFarm(id: number): void {
+      this.router.navigate([`fazenda/detalhe/${id}`]);
     }
 
 }

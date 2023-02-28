@@ -1,3 +1,4 @@
+import { AccountService } from './../../services/account.service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,12 +12,15 @@ import { RegisterComponent } from '../../pages/register/register.component';
   imports: [
     CommonModule,
     RouterModule.forChild(AuthLayoutRoutes),
-    FormsModule
-    // NgbModule
+    FormsModule,
+    NgbModule
   ],
   declarations: [
     LoginComponent,
     RegisterComponent
+  ],
+  providers: [
+    AccountService
   ]
 })
 export class AuthLayoutModule { }

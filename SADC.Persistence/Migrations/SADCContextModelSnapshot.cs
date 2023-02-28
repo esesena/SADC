@@ -179,12 +179,7 @@ namespace SADC.Persistence.Migrations
                     b.Property<double>("Size")
                         .HasColumnType("double");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Farms");
                 });
@@ -522,17 +517,6 @@ namespace SADC.Persistence.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Farm");
-                });
-
-            modelBuilder.Entity("SADC.Domain.Farm", b =>
-                {
-                    b.HasOne("SADC.Domain.Identity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SADC.Domain.Identity.UserRole", b =>

@@ -1,3 +1,5 @@
+import { User } from './../../models/identity/User';
+import { AccountService } from './../../services/account.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(public accountService: AccountService) { }
 
   ngOnInit() {
+    this.setCurrentUser();
   }
 
+  setCurrentUser(): void {
+    let user: User;
+
+    if (localStorage.getItem('user'))
+      user = JSON.parse(localStorage.getItem('user') ?? '{}')
+
+    else
+      user = null
+
+    if (user)
+      this.accountService.setCurrentUser(user);
+  }
 }
