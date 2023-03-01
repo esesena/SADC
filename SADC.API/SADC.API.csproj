@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\FarmImage\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

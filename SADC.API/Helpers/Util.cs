@@ -1,15 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADC.API.Helpers
+﻿namespace SADC.API.Helpers
 {
     public class Util : IUtil
     {
@@ -26,7 +15,13 @@ namespace SADC.API.Helpers
 
             imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destiny}", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources\{destiny}", imageName);
+
+            var directoryPath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources\{destiny}");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
 
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
@@ -38,7 +33,7 @@ namespace SADC.API.Helpers
 
         public void DeleteImage(string imageName, string destiny)
         {
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources/{destiny}", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @$"Resources\{destiny}", imageName);
             if (System.IO.File.Exists(imagePath))
             {
                 System.IO.File.Delete(imagePath);

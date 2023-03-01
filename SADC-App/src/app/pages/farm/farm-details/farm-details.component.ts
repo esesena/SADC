@@ -65,7 +65,7 @@ export class FarmDetailsComponent implements OnInit {
           this.form.patchValue(this.farm);
           if (this.farm.imageURL !== "") {
             this.imageURL =
-              environment.apiURL + "resources/images/" + this.farm.imageURL;
+              environment.apiURL + "resources/farmimage/" + this.farm.imageURL;
           }
           this.loadPlots();
         },

@@ -28,7 +28,7 @@ namespace SADC.Persistence
                             .Include(c => c.Plots);
 
             query = query.AsNoTracking()
-                         .Where(e => e.Name.ToLower().Contains(pageParams.Term.ToLower()))
+                         .Where(e => (e.Name.ToLower().Contains(pageParams.Term.ToLower()) && e.Location.ToLower().Contains(pageParams.Term.ToLower())))
             .OrderBy(e => e.Id);
 
             return await PageList<Farm>.CreateAsync(query, pageParams.PageNumber, pageParams.pageSize);

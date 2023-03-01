@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADC.API.Helpers
+﻿namespace SADC.API.Helpers
 {
     public interface IUtil
     {

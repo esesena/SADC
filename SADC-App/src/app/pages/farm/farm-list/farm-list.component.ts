@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 
 import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 
 import { environment } from './../../../../environments/environment';
 import { FarmService } from './../../../services/farm.service';
@@ -26,7 +26,7 @@ export class FarmListComponent implements OnInit {
   public margemImagem = 2;
   public showImage = true;
 
-  termoBuscaChanged: Subject<string> = new Subject<string>();
+searchTermChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private farmService: FarmService,
@@ -37,7 +37,7 @@ export class FarmListComponent implements OnInit {
     public ngOnInit(): void {
       this.pagination = {
         currentPage: 1,
-        itemsPerPage: 3,
+        itemsPerPage: 5,
         totalItems: 1,
       } as Pagination;
 
@@ -54,7 +54,7 @@ export class FarmListComponent implements OnInit {
   
     public revelImage(imageURL: string): string {
       return imageURL !== ''
-        ? `${environment.apiURL}resources/images/${imageURL}`
+        ? `${environment.apiURL}resources/farmimage/${imageURL}`
         : 'assets/img/brand/semImagem.jpeg';
     }
   
@@ -113,6 +113,31 @@ export class FarmListComponent implements OnInit {
   
     detalheFarm(id: number): void {
       this.router.navigate([`fazenda/detalhe/${id}`]);
+    }
+
+    public filterFarms(evt: any): void {
+      if (this.searchTermChanged.observers.length === 0) {
+        this.searchTermChanged
+          .pipe(debounceTime(1000))
+          .subscribe((filter) => {
+            this.farmService
+              .getFarms(
+                this.pagination.currentPage,
+                this.pagination.itemsPerPage,
+                filter
+              )
+              .subscribe(
+                (paginatedResult: PaginatedResult<Farm[]>) => {
+                  this.farms = paginatedResult.result;
+                  this.pagination = paginatedResult.pagination;
+                },
+                (error: any) => {
+                  this.toastr.error('Erro ao Carregar os Fazendas', 'Erro!');
+                }
+              );
+          });
+      }
+      this.searchTermChanged.next(evt.value);
     }
 
 }
