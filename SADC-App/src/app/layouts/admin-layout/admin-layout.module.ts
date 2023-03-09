@@ -1,3 +1,5 @@
+import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PlantingDetailsComponent } from './../../pages/planting/planting-details/planting-details.component';
 import { PlantingListComponent } from './../../pages/planting/planting-list/planting-list.component';
 import { SeedDetailsComponent } from './../../pages/seed/seed-details/seed-details.component';
@@ -55,6 +57,7 @@ import { TablesComponent } from '../../pages/tables/tables.component';
     NgbAccordionModule,
     NgbNavModule,
     NgbDatepickerModule,
+    NgMultiSelectDropDownModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-bottom-right',
