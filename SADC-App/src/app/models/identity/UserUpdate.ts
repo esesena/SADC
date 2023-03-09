@@ -6,4 +6,5 @@ export class UserUpdate {
   phoneNumber: string;
   password: string;
   token: string;
+  function: string;
 }

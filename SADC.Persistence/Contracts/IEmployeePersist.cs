@@ -7,5 +7,6 @@ namespace SADC.Persistence.Contracts
     {
         Task<PageList<Employee>> GetAllEmployeesAsync(PageParams pageParams, bool includeFarms = false);
         Task<Employee> GetEmployeeByUserIdAsync(int userId, bool includeFarms = false);
+        Task<Employee> GetEmployeeByIdAsync(int employeeId);
     }
 }

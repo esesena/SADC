@@ -1,6 +1,12 @@
-import { EmployeeComponent } from './../../pages/employee/employee.component';
-import { PlantingComponent } from './../../pages/planting/planting.component';
-import { SeedComponent } from './../../pages/seed/seed.component';
+import { PlantingDetailsComponent } from "./../../pages/planting/planting-details/planting-details.component";
+import { PlantingListComponent } from "./../../pages/planting/planting-list/planting-list.component";
+import { SeedDetailsComponent } from "./../../pages/seed/seed-details/seed-details.component";
+import { SeedListComponent } from "./../../pages/seed/seed-list/seed-list.component";
+import { EmployeeDetailsComponent } from "./../../pages/employee/employee-details/employee-details.component";
+import { EmployeeListComponent } from "./../../pages/employee/employee-list/employee-list.component";
+import { EmployeeComponent } from "./../../pages/employee/employee.component";
+import { PlantingComponent } from "./../../pages/planting/planting.component";
+import { SeedComponent } from "./../../pages/seed/seed.component";
 import { AuthGuard } from "./../../guard/auth.guard";
 import { Routes } from "@angular/router";
 
@@ -34,10 +40,36 @@ export const AdminLayoutRoutes: Routes = [
           { path: "detalhe/:id", component: FarmDetailsComponent },
         ],
       },
-      { path: "sementes", component: SeedComponent },
-      { path: "plantacoes", component: PlantingComponent },
-      { path: "funcionarios", component:  EmployeeComponent},
-
+      { path: "funcionarios", redirectTo: "funcionarios/lista" },
+      {
+        path: "funcionarios",
+        component: EmployeeComponent,
+        children: [
+          { path: "lista", component: EmployeeListComponent },
+          { path: "detalhe", component: EmployeeDetailsComponent },
+          { path: "detalhe/:id", component: EmployeeDetailsComponent },
+        ],
+      },
+      { path: "sementes", redirectTo: "sementes/lista" },
+      {
+        path: "sementes",
+        component: SeedComponent,
+        children: [
+          { path: "lista", component: SeedListComponent },
+          { path: "detalhe", component: SeedDetailsComponent },
+          { path: "detalhe/:id", component: SeedDetailsComponent },
+        ],
+      },
+      { path: "plantacoes", redirectTo: "plantacoes/lista" },
+      {
+        path: "plantacoes",
+        component: PlantingComponent,
+        children: [
+          { path: "lista", component: PlantingListComponent },
+          { path: "detalhe", component: PlantingDetailsComponent },
+          { path: "detalhe/:id", component: PlantingDetailsComponent },
+        ],
+      },
     ],
   },
 ];

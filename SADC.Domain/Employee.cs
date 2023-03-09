@@ -54,6 +54,7 @@ namespace SADC.Domain
         public string State { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public string ImageURL { get; set; }
         public IEnumerable<EmployeesFarms> EmployeesFarms { get; set; }
     }
 }

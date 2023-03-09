@@ -1,0 +1,142 @@
+<div class="row">
+  <div [ngClass]="{ 'col-md-8 pr-0': editMode, 'col-md-12': !editMode }">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header bg-transparent d-flex justify-content-between">
+            <h3 class="mb-0">{{ returnPlantingName(planting.harvest) }}</h3>
+          </div>
+          <div class="table-responsive">
+            <form class="m-3" [formGroup]="form">
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Fazenda</label>
+                      <select formControlName="farm" class="form-control" [(ngModel)]="planting.farm"
+                        [ngClass]="cssValidator(f.farm)" (focusout)="loadPlots(planting.farm)">
+                        <option *ngFor="let farm of farms" [value]="farm.id">{{ farm.name }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username">Safra</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Safra"
+                        [ngClass]="cssValidator(f.harvest)" formControlName="harvest" [(ngModel)]="planting.harvest">
+                      <div *ngIf="f.harvest.errors?.required" class="invalid-feedback">
+                        Safra é obrigatório.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-first-name">Data de Nascimento</label>
+                    <div class="input-group">
+                      <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="plantingDate"
+                        [(ngModel)]="planting.plantingDate" ngbDatepicker #d="ngbDatepicker" />
+                      <button class="btn btn-primary fa fa-calendar-alt" (click)="d.toggle()"
+                        type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Tipo de Plantio</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Tipo de Plantio"
+                          [(ngModel)]="planting.typePlanting" formControlName="typePlanting"
+                          [ngClass]="cssValidator(f.typePlanting)" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Semente</label>
+                      <select formControlName="seed" class="form-control" [(ngModel)]="planting.seed"
+                        [ngClass]="cssValidator(f.seed)">
+                        <option *ngFor="let seed of seeds" [value]="seed.id">{{ seed.description }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Tempo durante o plantio</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Tempo durante o plantio" [ngClass]="cssValidator(f.weatherPlanting)"
+                        formControlName="weatherPlanting" [(ngModel)]="planting.weatherPlanting">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Umidade do Ar</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Umidade do Ar"
+                        [ngClass]="cssValidator(f.airMoisture)" formControlName="airMoisture"
+                        [(ngModel)]="planting.airMoisture">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Quantidade de Sementes</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Quantidade de Sementes Numero" [ngClass]="cssValidator(f.seedAmount)"
+                        formControlName="seedAmount" [(ngModel)]="planting.seedAmount">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Quantidade de Chuva</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Número"
+                        [ngClass]="cssValidator(f.rainAmount)" formControlName="rainAmount"
+                        [(ngModel)]="planting.rainAmount">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">fertilizing</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="fertilizing"
+                          [ngClass]="cssValidator(f.fertilizing)" formControlName="fertilizing"
+                          [(ngModel)]="planting.fertilizing">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>Talhões</label>
+                        <select formControlName="plot" class="form-control" [(ngModel)]="planting.plot"
+                          [ngClass]="cssValidator(f.plot)">
+                          <option *ngFor="let plot of plots" [value]="plot.id">{{ plot.name }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex">
+                  <button class="btn btn-success" [disabled]="!form.valid" (click)="savePlanting()">
+                    <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+                    Salvar Plantio
+                  </button>
+                </div>
+              </div>
+              <pre>Model: {{ form.value | json }}</pre>
+              <pre>Model: {{ form.valid | json }}</pre>
+              <hr class="my-4" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

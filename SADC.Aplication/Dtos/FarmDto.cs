@@ -18,7 +18,7 @@ namespace SADC.Application.Dtos
         public string ImageURL { get; set; }
         public double Size { get; set; }
 
-        public IEnumerable<EmployeesFarms> EmployeesFarms { get; set; }
-        public IEnumerable<Plot> Plots { get; set; }
+        public IEnumerable<EmployeeDto> Employees { get; set; }
+        public IEnumerable<PlotDto> Plots { get; set; }
     }
 }

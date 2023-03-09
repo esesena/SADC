@@ -1,9 +1,7 @@
 ﻿using SADC.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SADC.Domain
-{ 
+{
     public class Seed
     {
         //[Key]
@@ -35,7 +33,7 @@ namespace SADC.Domain
         //[Required(ErrorMessage = "{0} é obrigatório!")]
         public string Resistence { get; set; }
 
-        //[Display(Name = "Grupo Maturaçãoo")]
+        //[Display(Name = " ")]
         //[Required(ErrorMessage = "{0} é obrigatório!")]
         public decimal MaturationGroup { get; set; }
 

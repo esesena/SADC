@@ -43,6 +43,7 @@ namespace SADC.API.Controllers
                     $"Erro ao tentar recuperar farms. Erro: {ex.Message}");
             }
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -60,6 +61,7 @@ namespace SADC.API.Controllers
                     $"Erro ao tentar recuperar Farms. Erro: {ex.Message}");
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> Post(FarmDto model)
         {

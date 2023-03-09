@@ -69,6 +69,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IFarmService, FarmService>();
 builder.Services.AddScoped<IPlotService, PlotService>();
+builder.Services.AddScoped<IPlantingService, PlantingService>();
+builder.Services.AddScoped<ISeedService, SeedService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUtil, Util>();
 
@@ -76,12 +78,14 @@ builder.Services.AddScoped<IGeralPersist, GeralPersist>();
 builder.Services.AddScoped<IEmployeePersist, EmployeePersist>();
 builder.Services.AddScoped<IFarmPersist, FarmPersist>();
 builder.Services.AddScoped<IPlotPersist, PlotPersist>();
+builder.Services.AddScoped<IPlantingPersist, PlantingPersist>();
+builder.Services.AddScoped<ISeedPersist, SeedPersist>();
 builder.Services.AddScoped<IUserPersist, UserPersist>();
 
 builder.Services.AddCors();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "LGPDMgt.API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SADC.API", Version = "v1" });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header usando Bearer.

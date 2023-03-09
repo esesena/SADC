@@ -1633,7 +1633,7 @@
           }
         }
       },
-      "SADC.Aplication/1.0.0": {
+      "SADC.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -1645,10 +1645,10 @@
           "System.IdentityModel.Tokens.Jwt": "6.27.0"
         },
         "compile": {
-          "bin/placeholder/SADC.Aplication.dll": {}
+          "bin/placeholder/SADC.Application.dll": {}
         },
         "runtime": {
-          "bin/placeholder/SADC.Aplication.dll": {}
+          "bin/placeholder/SADC.Application.dll": {}
         }
       },
       "SADC.Domain/1.0.0": {
@@ -4190,10 +4190,10 @@
         "version.txt"
       ]
     },
-    "SADC.Aplication/1.0.0": {
+    "SADC.Application/1.0.0": {
       "type": "project",
-      "path": "../SADC.Aplication/SADC.Aplication.csproj",
-      "msbuildProject": "../SADC.Aplication/SADC.Aplication.csproj"
+      "path": "../SADC.Aplication/SADC.Application.csproj",
+      "msbuildProject": "../SADC.Aplication/SADC.Application.csproj"
     },
     "SADC.Domain/1.0.0": {
       "type": "project",
@@ -4217,7 +4217,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.14",
       "MySql.Data >= 8.0.32",
       "Pomelo.EntityFrameworkCore.MySql >= 6.0.2",
-      "SADC.Aplication >= 1.0.0",
+      "SADC.Application >= 1.0.0",
       "SADC.Domain >= 1.0.0",
       "SADC.Persistence >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
@@ -4256,8 +4256,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj": {
-              "projectPath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj"
+            "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Application.csproj": {
+              "projectPath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Application.csproj"
             },
             "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj": {
               "projectPath": "C:\\Systems\\SADC\\SADC.Domain\\SADC.Domain.csproj"

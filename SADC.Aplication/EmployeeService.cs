@@ -2,6 +2,7 @@
 using SADC.Application.Contracts;
 using SADC.Application.Dtos;
 using SADC.Domain;
+using SADC.Persistence;
 using SADC.Persistence.Contracts;
 using SADC.Persistence.Models;
 using System;
@@ -16,11 +17,14 @@ namespace SADC.Application
     {
         private readonly IEmployeePersist _employeePersist;
         private readonly IMapper _mapper;
+        private readonly IGeralPersist _geralPersist;
 
-        public EmployeeService(IEmployeePersist employeePersist, IMapper mapper)
+
+        public EmployeeService(IEmployeePersist employeePersist, IMapper mapper, IGeralPersist geralPersist)
         {
             _employeePersist = employeePersist;
             _mapper = mapper;
+            _geralPersist = geralPersist;
         }
 
         public async Task<EmployeeDto> AddEmployees(int userId, EmployeeAddDto model)
@@ -46,23 +50,22 @@ namespace SADC.Application
             }
         }
 
-        public async Task<EmployeeDto> UpdateEmployee(int userId, EmployeeUpdateDto model)
+        public async Task<EmployeeDto> UpdateEmployee(int employeeId, EmployeeDto model)
         {
             try
             {
-                var employee = await _employeePersist.GetEmployeeByUserIdAsync(userId, false);
+                var employee = await _employeePersist.GetEmployeeByIdAsync(employeeId);
                 if (employee == null) return null;
 
                 model.Id = employee.Id;
-                model.UserId = employee.UserId;
 
                 _mapper.Map(model, employee);
 
-                _employeePersist.Update<Employee>(employee);
+                _geralPersist.Update<Employee>(employee);
 
                 if (await _employeePersist.SaveChangesAsync())
                 {
-                    var employeeRetorno = await _employeePersist.GetEmployeeByUserIdAsync(userId, false);
+                    var employeeRetorno = await _employeePersist.GetEmployeeByIdAsync(employeeId);
 
                     return _mapper.Map<EmployeeDto>(employeeRetorno);
                 }
@@ -103,6 +106,23 @@ namespace SADC.Application
             try
             {
                 var employee = await _employeePersist.GetEmployeeByUserIdAsync(userId, includeFarms);
+                if (employee == null) return null;
+
+                var resultado = _mapper.Map<EmployeeDto>(employee);
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId)
+        {
+            try
+            {
+                var employee = await _employeePersist.GetEmployeeByIdAsync(employeeId);
                 if (employee == null) return null;
 
                 var resultado = _mapper.Map<EmployeeDto>(employee);

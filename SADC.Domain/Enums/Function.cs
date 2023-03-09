@@ -8,5 +8,7 @@ namespace SADC.Domain.Enums
         Admin,
         Director,
         Support,
+        Driver,
+        Manager
     }
 }

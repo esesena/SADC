@@ -17,7 +17,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "6.0.14",
           "MySql.Data": "8.0.32",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.2",
-          "SADC.Aplication": "1.0.0",
+          "SADC.Application": "1.0.0",
           "SADC.Domain": "1.0.0",
           "SADC.Persistence": "1.0.0",
           "Swashbuckle.AspNetCore": "6.2.3"
@@ -850,7 +850,7 @@
           }
         }
       },
-      "SADC.Aplication/1.0.0": {
+      "SADC.Application/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
@@ -860,7 +860,7 @@
           "System.IdentityModel.Tokens.Jwt": "6.27.0"
         },
         "runtime": {
-          "SADC.Aplication.dll": {}
+          "SADC.Application.dll": {}
         }
       },
       "SADC.Domain/1.0.0": {
@@ -1577,7 +1577,7 @@
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
     },
-    "SADC.Aplication/1.0.0": {
+    "SADC.Application/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

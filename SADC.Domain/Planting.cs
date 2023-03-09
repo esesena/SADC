@@ -15,10 +15,6 @@ namespace SADC.Domain
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime PlantingDate { get; set; }
 
-        //[Display(Name = "Cultura")]
-        //[Required(ErrorMessage = "{0} é obrigatório!")]
-        public Cultivation Cultivation { get; set; }
-
         //[Display(Name = "Safra")]
         //[Required(ErrorMessage = "{0} é obrigatório!")]
         //[StringLength(100, MinimumLength = 3, ErrorMessage = "{0} deve ter entre {2} e {1} caracteres!")]
@@ -60,6 +56,9 @@ namespace SADC.Domain
         //[Required(ErrorMessage = "{0} é obrigatório!")]
         //[StringLength(100, MinimumLength = 3, ErrorMessage = "{0} deve ter entre {2} e {1} caracteres!")]
         public string Fertilizing { get; set; }
+
+        public int FarmId { get; set; }
+        public Farm Farm { get; set; }
 
         //[Display(Name = "Talhões")]
         //public int TalhoesId { get; set; }

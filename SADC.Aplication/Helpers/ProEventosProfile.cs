@@ -11,6 +11,9 @@ namespace SADC.Application.Helpers
         {
             CreateMap<Farm, FarmDto>().ReverseMap();
             CreateMap<Plot, PlotDto>().ReverseMap();
+            CreateMap<Planting, PlantingDto>().ReverseMap();
+            CreateMap<Seed, SeedDto>().ReverseMap();
+            CreateMap<Notice, NoticeDto>().ReverseMap();
 
             CreateMap<Employee, EmployeeDto>().ReverseMap();
             CreateMap<Employee, EmployeeAddDto>().ReverseMap();

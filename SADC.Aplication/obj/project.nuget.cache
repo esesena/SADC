@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bFqL+omxLrwxbmyAxS/aKyLYjd3dd89jlbclCB7+6UfQYkJMhMJGpFxPrOy6U/dxs62vcTftNGBtr1B38wgYjg==",
+  "dgSpecHash": "uuKu7PQbOFb4F3AKhQK2FHCgGBMez3o6k9ZBIN0SfPDzAP+GJThQOb22TKLCnLmGPvzM34Ffiv2MF6VnPzz2tQ==",
   "success": true,
-  "projectFilePath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
+  "projectFilePath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\elana\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\elana\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

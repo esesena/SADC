@@ -2,79 +2,39 @@
   <div class="col">
     <div class="card shadow">
       <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-        <h3 class="mb-0">Lista de Fazendas</h3>
+        <h3 class="mb-0">Lista de Funcionários</h3>
         <div class="input-group mb-2 col-8">
           <div class="input-group-prepend">
-            <div class="input-group-text">Filtro: </div>
+            <div class="input-group-text">Filtro:</div>
           </div>
-          <input
-          type="text"
-          class="form-control"
-          placeholder="Buscar Fazenda"
-          (input)="filterFarms($event.target)"
-          >
+          <input type="text" class="form-control" placeholder="Buscar Fazenda"
+            (input)="filterEmployees($event.target)" />
         </div>
-        <button
-          type="button"
-          class="btn btn-outline-secondary"
-          routerLink="/fazenda/detalhe"
-        >
-        <i class="fa-solid fa-plus-circle"></i>
-          Nova Fazenda
+        <button type="button" class="btn btn-outline-secondary" routerLink="/funcionarios/detalhe">
+          <i class="fa-solid fa-plus-circle"></i>
+          Novo Funcionário
         </button>
       </div>
       <div class="table-responsive">
         <table class="table align-items-center table-flush">
           <thead class="thead-light">
             <tr>
-              <th scope="col">
-                <button
-                  type="button"
-                  class="btn btn-outline-light btn-sm"
-                  (click)="changeImage()"
-                >
-                  <i
-                    class="{{ !showImage ? 'fa fa-eye' : 'fa fa-eye-slash' }}"
-                  ></i>
-                </button>
-                {{ !showImage ? "exibir" : "ocultar" }}
-              </th>
               <th scope="col">Nome</th>
-              <th scope="col">Localização</th>
-              <th scope="col">Área (ha)</th>
+              <th scope="col">Função</th>
+              <th scope="col">Fazenda</th>
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody *ngIf="farms && farms.length">
+          <tbody *ngIf="employees && employees.length">
             <!-- <tbody> -->
-            <tr
-              *ngFor="let farm of farms"
-              (click)="detalheFarm(farm.id)"
-              style="cursor: pointer"
-            >
-              <td>
-                <img
-                  [ngbCollapse]="!showImage"
-                  [isAnimated]="true"
-                  [src]="revelImage(farm.imageURL)"
-                  class="farm-image"
-                />
-              </td>
-              <td>{{ farm.name }}</td>
-              <td>
-                {{ farm.location }}
-              </td>
-              <td>
-                {{ farm.size }}
-              </td>
+            <tr *ngFor="let employee of employees" (click)="employeeDetail(employee.id)" style="cursor: pointer">
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.function }}</td>
+              <td>{{ employee.farm }}</td>
               <td class="text-right">
-                <button
-                  type="button"
-                  class="btn btn-danger btn-lg d-flex align-items-center justify-content-center"
-                  tooltip="Excluir"
-                  style="width: 20px; height: 30px"
-                  (click)="openModal($event, template, farm.id)"
-                >
+                <button type="button" class="btn btn-danger btn-lg d-flex align-items-center justify-content-center"
+                  tooltip="Excluir" style="width: 20px; height: 30px"
+                  (click)="openModal($event, template, employee.id)">
                   <i class="fa fa-trash"></i>
                 </button>
                 <!-- <div ngbDropdown placement="bottom-right">
@@ -102,20 +62,15 @@
               </td>
             </tr>
           </tbody>
-          <tfoot *ngIf="!farms.length"></tfoot>
+          <tfoot *ngIf="!employees.length"></tfoot>
         </table>
       </div>
       <div class="card-footer py-4">
         <nav aria-label="...">
           <ul class="pagination justify-content-end mb-0">
-            <ngb-pagination ngbPaginationEllipsis
-            [(page)]="pagination.currentPage"
-            [pageSize]="pagination.itemsPerPage"
-            [collectionSize]="pagination.totalItems"
-            (pageChange)="pageChange($event)"
-            class="page-item"
-            >
-            <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+            <ngb-pagination ngbPaginationEllipsis [(page)]="pagination.currentPage" [pageSize]="pagination.itemsPerPage"
+              [collectionSize]="pagination.totalItems" (pageChange)="pageChange($event)" class="page-item">
+              <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
             </ngb-pagination>
           </ul>
         </nav>

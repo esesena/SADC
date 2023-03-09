@@ -127,6 +127,9 @@ namespace SADC.Persistence.Migrations
                     b.Property<int>("Function")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
@@ -338,7 +341,7 @@ namespace SADC.Persistence.Migrations
                     b.Property<decimal>("AirMoisture")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int>("Cultivation")
+                    b.Property<int>("FarmId")
                         .HasColumnType("int");
 
                     b.Property<string>("Fertilizing")
@@ -369,6 +372,8 @@ namespace SADC.Persistence.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FarmId");
 
                     b.HasIndex("SeedId");
 
@@ -540,11 +545,19 @@ namespace SADC.Persistence.Migrations
 
             modelBuilder.Entity("SADC.Domain.Planting", b =>
                 {
+                    b.HasOne("SADC.Domain.Farm", "Farm")
+                        .WithMany()
+                        .HasForeignKey("FarmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SADC.Domain.Seed", "Seed")
                         .WithMany()
                         .HasForeignKey("SeedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Farm");
 
                     b.Navigation("Seed");
                 });

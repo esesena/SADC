@@ -1,0 +1,17 @@
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Application.deps.json
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Application.dll
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Application.pdb
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Domain.dll
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Persistence.dll
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Domain.pdb
+C:\Systems\SADC\SADC.Aplication\bin\Debug\net6.0\SADC.Persistence.pdb
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.csproj.AssemblyReference.cache
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.AssemblyInfoInputs.cache
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.AssemblyInfo.cs
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.csproj.CoreCompileInputs.cache
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.csproj.CopyComplete
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.dll
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\refint\SADC.Application.dll
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\SADC.Application.pdb
+C:\Systems\SADC\SADC.Aplication\obj\Debug\net6.0\ref\SADC.Application.dll

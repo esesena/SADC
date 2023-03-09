@@ -4,6 +4,7 @@ using SADC.Application.Dtos;
 using SADC.Persistence.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SADC.API.Helpers;
 
 namespace SADC.API.Controllers
 {
@@ -15,12 +16,16 @@ namespace SADC.API.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IWebHostEnvironment _hostEnviroment;
         private readonly IAccountService _accountService;
+        private readonly IUtil _util;
+        private readonly string _destiny = "EmployeeImage";
 
-        public EmployeeController(IEmployeeService employeeService, IWebHostEnvironment hostEnviroment, IAccountService accountService)
+
+        public EmployeeController(IEmployeeService employeeService, IWebHostEnvironment hostEnviroment, IAccountService accountService, IUtil util)
         {
             _employeeService = employeeService;
             _hostEnviroment = hostEnviroment;
             _accountService = accountService;
+            _util = util;
         }
 
         [HttpGet("all")]
@@ -41,12 +46,31 @@ namespace SADC.API.Controllers
                     $"Erro ao tentar recuperar employees. Erro: {ex.Message}");
             }
         }
+
         [HttpGet()]
         public async Task<IActionResult> GetByEmployees()
         {
             try
             {
                 var employee = await _employeeService.GetEmployeeByUserIdAsync(User.GetUserId(), true);
+                if (employee == null) return NoContent();
+
+                return Ok(employee);
+            }
+            catch (Exception ex)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar Employees. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var employee = await _employeeService.GetEmployeeByIdAsync(id);
                 if (employee == null) return NoContent();
 
                 return Ok(employee);
@@ -78,8 +102,34 @@ namespace SADC.API.Controllers
             }
         }
 
+        [HttpPost("upload-image/{employeeId}")]
+        public async Task<IActionResult> UploadImage(int employeeId)
+        {
+            try
+            {
+                var employee = await _employeeService.GetEmployeeByIdAsync(employeeId);
+                if (employee == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    _util.DeleteImage(employee.ImageURL, _destiny);
+                    employee.ImageURL = await _util.SaveImage(file, _destiny);
+                }
+                var employeeRetorno = await _employeeService.UpdateEmployee(employeeId, employee);
+
+                return Ok(employeeRetorno);
+            }
+            catch (Exception ex)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar adicionar Farms. Erro: {ex.Message}");
+            }
+        }
+
         [HttpPut]
-        public async Task<IActionResult> Put(EmployeeUpdateDto model)
+        public async Task<IActionResult> Put(EmployeeDto model)
         {
             try
             {

@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SADC.Aplication\SADC.Aplication.csproj" />
+    <ProjectReference Include="..\SADC.Aplication\SADC.Application.csproj" />
     <ProjectReference Include="..\SADC.Domain\SADC.Domain.csproj" />
     <ProjectReference Include="..\SADC.Persistence\SADC.Persistence.csproj" />
   </ItemGroup>

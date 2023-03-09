@@ -1,0 +1,109 @@
+<div class="row">
+  <div [ngClass]="{ 'col-md-8 pr-0': editMode, 'col-md-12': !editMode }">
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header bg-transparent d-flex justify-content-between">
+            <h3 class="mb-0">{{ returnSeedName(seed.description) }}</h3>
+          </div>
+          <div class="table-responsive">
+            <form class="m-3" [formGroup]="form">
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-username">Descrição</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Descrição da semente" [ngClass]="cssValidator(f.description)"
+                        formControlName="description" [(ngModel)]="seed.description">
+                      <div *ngIf="f.description.errors?.required" class="invalid-feedback">
+                        Descricao é obrigatório.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Altura da Planta</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Número" [ngClass]="cssValidator(f.height)" formControlName="height"
+                        [(ngModel)]="seed.height">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label">Hábito de Crescimento</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Hábito de Crescimento" name="dp"
+                          [(ngModel)]="seed.growthHabit" formControlName="growthHabit"
+                          [ngClass]="cssValidator(f.growthHabit)" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Cultivo</label>
+                      <select formControlName="cultivation" class="form-control" [(ngModel)]="seed.cultivation">
+                        <option value="Algodao">Algodão</option>
+                        <option value="Braquiaria">Braquiaria</option>
+                        <option value="Milho">Milho</option>
+                        <option value="Milheto">Milheto</option>
+                        <option value="Soja">Soja</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Floração</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Número"
+                        [ngClass]="cssValidator(f.flowering)" formControlName="flowering" [(ngModel)]="seed.flowering">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Resistência</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Resistência"
+                        [ngClass]="cssValidator(f.resistence)" formControlName="resistence"
+                        [(ngModel)]="seed.resistence">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Consumo Médio de Sementes</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Consumo Médio de Sementes" [ngClass]="cssValidator(f.seedConsumption)"
+                        formControlName="seedConsumption" [(ngModel)]="seed.seedConsumption">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label class="form-control-label" for="input-email">Grupo Maturação</label>
+                      <input type="text" class="form-control" id="exampleFormControlInput1"
+                        placeholder="Número" [ngClass]="cssValidator(f.maturationGroup)"
+                        formControlName="maturationGroup" [(ngModel)]="seed.maturationGroup">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex">
+                  <button class="btn btn-success" [disabled]="!form.valid" (click)="saveSeed()">
+                    <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+                    Salvar Sememte
+                  </button>
+                </div>
+              </div>
+              <pre>Model: {{ seed| json }}</pre>
+              <hr class="my-4" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

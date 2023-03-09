@@ -52,5 +52,15 @@ namespace SADC.Persistence
 
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task<Employee> GetEmployeeByIdAsync(int employeeId)
+        {
+            IQueryable<Employee> query = _context.Employees;
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+            .Where(e => e.Id == employeeId);
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

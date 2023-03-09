@@ -3632,9 +3632,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
-      "projectName": "SADC.Aplication",
-      "projectPath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Aplication.csproj",
+      "projectUniqueName": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Application.csproj",
+      "projectName": "SADC.Application",
+      "projectPath": "C:\\Systems\\SADC\\SADC.Aplication\\SADC.Application.csproj",
       "packagesPath": "C:\\Users\\elana\\.nuget\\packages\\",
       "outputPath": "C:\\Systems\\SADC\\SADC.Aplication\\obj\\",
       "projectStyle": "PackageReference",

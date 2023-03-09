@@ -27,12 +27,28 @@ namespace SADC.Persistence
 
             if (includePlots)
             {
-                query = query.Include(p => p.PlantingPlot)
-                    .ThenInclude(pe => pe.Plot);
+                query = query.Include(p => p.Seed)
+                    .Include(p => p.PlantingPlot)
+                    .ThenInclude(pe => pe.Plot)
+                    .Where(p => (p.Harvest.ToLower().Contains(pageParams.Term.ToLower())) || 
+                                 p.Seed.Description.ToLower().Contains(pageParams.Term.ToLower()) || 
+                                 p.Fertilizing.ToLower().Contains(pageParams.Term.ToLower()));
             }
 
             return await PageList<Planting>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
+        public async Task<Planting> GetPlantingByIdAsync(int plantingId)
+        {
+            IQueryable<Planting> query = _context.Plantings
+                                        .Include(c => c.Seed)
+                                        .Include(p => p.PlantingPlot)
+                                        .ThenInclude(p => p.Plot);
+
+            query = query.AsNoTracking().OrderBy(e => e.Id)
+            .Where(e => e.Id == plantingId);
+
+            return await query.FirstOrDefaultAsync();
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace SADC.Application.Dtos
         public double Size { get; set; }
         public string SoilType { get; set; }
         public int FarmId { get; set; }
-        public Farm Farm { get; set; }
-        public IEnumerable<PlantingPlot> PlantingPlot { get; set; }
+        public FarmDto Farm { get; set; }
+        public IEnumerable<PlantingDto> Planting { get; set; }
     }
 }

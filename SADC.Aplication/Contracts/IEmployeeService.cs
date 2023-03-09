@@ -6,9 +6,10 @@ namespace SADC.Application.Contracts
     public interface IEmployeeService
     {
         Task<EmployeeDto> AddEmployees(int userId, EmployeeAddDto model);
-        Task<EmployeeDto> UpdateEmployee(int userId, EmployeeUpdateDto model);
+        Task<EmployeeDto> UpdateEmployee(int userId, EmployeeDto model);
 
         Task<PageList<EmployeeDto>> GetAllEmployeesAsync(PageParams pageParams, bool includeFarms = false);
         Task<EmployeeDto> GetEmployeeByUserIdAsync(int userId, bool includeFarms = false);
+        Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId);
     }
 }

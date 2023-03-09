@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col">
+    <div class="card shadow">
+      <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Lista de Sementes</h3>
+        <div class="input-group mb-2 col-8">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Filtro: </div>
+          </div>
+          <input type="text" class="form-control" placeholder="Buscar Semente" (input)="filterPlantings($event.target)">
+        </div>
+        <button type="button" class="btn btn-outline-secondary" routerLink="/plantacoes/detalhe">
+          <i class="fa-solid fa-plus-circle"></i>
+          Nova Plantação
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Cultura</th>
+              <th scope="col">Descricao</th>
+              <th scope="col">Localização</th>
+              <th scope="col">Área (ha)</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody *ngIf="plantings && plantings.length">
+            <!-- <tbody> -->
+            <tr *ngFor="let planting of plantings" (click)="detalhePlanting(planting.id)" style="cursor: pointer">
+              <td>
+                {{ planting.culture }}
+              </td>
+              <td>{{ planting.name }}</td>
+              <td>
+                {{ planting.height }}
+              </td>
+              <td>
+                {{ planting.maturationGroup }}
+              </td>
+              <td class="text-right">
+                <button type="button" class="btn btn-danger btn-lg d-flex align-items-center justify-content-center"
+                  tooltip="Excluir" style="width: 20px; height: 30px" (click)="openModal($event, template, planting.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="!plantings.length"></tfoot>
+        </table>
+      </div>
+      <div class="card-footer py-4">
+        <nav aria-label="...">
+          <ul class="pagination justify-content-end mb-0">
+            <ngb-pagination ngbPaginationEllipsis [(page)]="pagination.currentPage" [pageSize]="pagination.itemsPerPage"
+              [collectionSize]="pagination.totalItems" (pageChange)="pageChange($event)" class="page-item">
+              <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+            </ngb-pagination>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
