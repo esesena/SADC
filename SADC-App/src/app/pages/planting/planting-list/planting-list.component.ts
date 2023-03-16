@@ -1,3 +1,4 @@
+import { NgbActiveModal, NgbModal, NgbModalConfig, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { PlantingService } from './../../../services/planting.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,9 +22,15 @@ export class PlantingListComponent implements OnInit {
   constructor(
     private plantingService: PlantingService,
     // private modalRef: NgbModalRef,
+    private config: NgbModalConfig,
+    private modalService: NgbModal,
     private toastr: ToastrService,
     private router: Router
   ) {}
+
+  open(content) {
+    this.modalService.open(content)
+	}
 
   public ngOnInit(): void {
     this.pagination = {
@@ -59,37 +66,35 @@ export class PlantingListComponent implements OnInit {
     this.loadPlantings();
   }
 
-  // confirm(): void {
-  //   this.modalRef.hidden;
-
-  //   this.plantingService
-  //     .deleteSeed(this.seedId)
-  //     .subscribe(
-  //       (result: any) => {
-  //         if (result.message === 'Deletado') {
-  //           this.toastr.success(
-  //             'O Evento foi deletado com Sucesso.',
-  //             'Deletado!'
-  //           );
-  //           this.loadSeeds();
-  //         }
-  //       },
-  //       (error: any) => {
-  //         console.error(error);
-  //         this.toastr.error(
-  //           `Erro ao tentar deletar o evento ${this.seedId}`,
-  //           'Erro'
-  //         );
-  //       }
-  //     );
-  // }
+  confirm(): void {
+    this.plantingService
+      .deletePlanting(this.plantingId)
+      .subscribe(
+        (result: any) => {
+          if (result.message === 'Deletado') {
+            this.toastr.success(
+              'O Evento foi deletado com Sucesso.',
+              'Deletado!'
+            );
+            this.loadPlantings();
+          }
+        },
+        (error: any) => {
+          console.error(error);
+          this.toastr.error(
+            `Erro ao tentar deletar o evento ${this.plantingId}`,
+            'Erro'
+          );
+        }
+      );
+  }
 
   // decline(): void {
   //   this.modalRef.hidden;
   // }
 
-  detalheSeed(id: number): void {
-    this.router.navigate([`semente/detalhe/${id}`]);
+  detailPlanting(id: number): void {
+    this.router.navigate([`plantacoes/detalhe/${id}`]);
   }
 
   public filterPlantings(evt: any): void {

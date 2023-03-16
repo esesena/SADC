@@ -18,14 +18,11 @@ namespace SADC.API.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly ITokenService _tokenService;
-        private readonly IUtil _util;
-        private readonly string _destino = "Perfil";
 
         public AccountController(IAccountService accountService, ITokenService tokenService, IUtil util)
         {
             _accountService = accountService;
             _tokenService = tokenService;
-            _util = util;
         }
 
         [HttpGet("GetUser")]
@@ -58,7 +55,6 @@ namespace SADC.API.Controllers
                     return Ok(new
                     {
                         userName = user.UserName,
-                        firstName = user.FirstName,
                         token = _tokenService.CreateToken(user).Result
                     });
 
@@ -86,7 +82,6 @@ namespace SADC.API.Controllers
                 return Ok(new
                 {
                     userName = user.UserName,
-                    firstName = user.FirstName,
                     token = _tokenService.CreateToken(user).Result
                 });
             }
@@ -116,7 +111,6 @@ namespace SADC.API.Controllers
                 return Ok(new
                 {
                     userName = userReturn.UserName,
-                    firstName = userReturn.FirstName,
                     token = _tokenService.CreateToken(userReturn).Result
                 });
             }
@@ -135,12 +129,6 @@ namespace SADC.API.Controllers
                 var user = await _accountService.GetUserByUserNameAsync(User.GetUserName());
                 if (user == null) return NoContent();
 
-                var file = Request.Form.Files[0];
-                if (file.Length > 0)
-                {
-                    _util.DeleteImage(user.ImageURL, _destino);
-                    user.ImageURL = await _util.SaveImage(file, _destino);
-                }
                 var EventoRetorno = await _accountService.UpdateAccount(user);
 
                 return Ok(EventoRetorno);

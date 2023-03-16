@@ -1,10 +1,10 @@
 <div class="row">
-  <div [ngClass]="{ 'col-md-8 pr-0': editMode, 'col-md-12': !editMode }">
+  <div class="col-md-12">
     <div class="row">
       <div class="col">
         <div class="card shadow">
           <div class="card-header bg-transparent d-flex justify-content-between">
-            <h3 class="mb-0">{{ returnPlantingName(planting.harvest) }}</h3>
+            <h3 class="mb-0">Safra {{ returnPlantingName(planting.harvest) }}</h3>
           </div>
           <div class="table-responsive">
             <form class="m-3" [formGroup]="form">
@@ -13,8 +13,8 @@
                   <div class="col-lg-4">
                     <div class="form-group">
                       <label>Fazenda</label>
-                      <select formControlName="farm" class="form-control" [(ngModel)]="planting.farm"
-                        [ngClass]="cssValidator(f.farm)" (focusout)="loadPlots(planting.farm)">
+                      <select formControlName="farmId" class="form-control" [(ngModel)]="planting.farmId"
+                        [ngClass]="cssValidator(f.farmId)" (focusout)="loadFields(planting.farmId)">
                         <option *ngFor="let farm of farms" [value]="farm.id">{{ farm.name }}</option>
                       </select>
                     </div>
@@ -32,10 +32,11 @@
 
                   <div class="col-lg-4">
                     <div class="form-group">
-                      <label class="form-control-label" for="input-first-name">Data de Nascimento</label>
+                      <label class="form-control-label" for="input-first-name">Data do Plantio</label>
                       <div class="input-group">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="plantingDate"
-                          [(ngModel)]="planting.plantingDate" ngbDatepicker #d="ngbDatepicker" />
+                        <input class="form-control" placeholder="dd-mm-yyyy" name="dp" formControlName="plantingDate"
+                          [(ngModel)]="planting.plantingDate" ngbDatepicker #d="ngbDatepicker"
+                          value="{{planting.plantingDate | date:'dd/MM/yyyy'}}" />
                         <button class="btn btn-primary fa fa-calendar-alt" (click)="d.toggle()" type="button"></button>
                       </div>
                     </div>
@@ -44,19 +45,19 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="form-group">
-                      <label class="form-control-label">Tipo de Plantio</label>
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Tipo de Plantio"
-                          [(ngModel)]="planting.typePlanting" formControlName="typePlanting"
-                          [ngClass]="cssValidator(f.typePlanting)" />
-                      </div>
+
+                      <label>Tipo de Plantio</label>
+                      <select formControlName="typePlanting" class="form-control" [(ngModel)]="planting.typePlanting">
+                        <option value="Direct">Direto</option>
+                        <option value="Indirect">Indireto</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="form-group">
                       <label>Semente</label>
-                      <select formControlName="seed" class="form-control" [(ngModel)]="planting.seed"
-                        [ngClass]="cssValidator(f.seed)">
+                      <select formControlName="seedId" class="form-control" [(ngModel)]="planting.seedId"
+                        [ngClass]="cssValidator(f.seedId)">
                         <option *ngFor="let seed of seeds" [value]="seed.id">{{ seed.description }}</option>
                       </select>
                     </div>
@@ -100,32 +101,33 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="form-group">
-                      <label class="form-control-label" for="input-email">fertilizing</label>
+                      <label class="form-control-label" for="input-email">Fertilização</label>
                       <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="fertilizing"
                         [ngClass]="cssValidator(f.fertilizing)" formControlName="fertilizing"
                         [(ngModel)]="planting.fertilizing">
                     </div>
                   </div>
-                  <div class="col-lg-4"  style="display: none;">
+                  <div class="col-lg-4">
                     <div class="form-group">
                       <label>Talhões</label>
-                      <select multiple formControlName="plot" class="form-control" [(ngModel)]="planting.plot"
-                        [ngClass]="cssValidator(f.plot)">
-                        <option *ngFor="let plot of plots" [value]="plot.id">{{ plot.name }}</option>
+                      <select multiple formControlName="fieldId" class="form-control" [(ngModel)]="planting.fieldId"
+                        [ngClass]="cssValidator(f.fieldId)">
+                        <option *ngFor="let field of fields" [value]="field.id">{{ field.name }}</option>
                       </select>
                     </div>
                   </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label for="" class="form-control-label">Teste multiple</label>
-                        <ng-multiselect-dropdown [placeholder]="'Talhões'" [settings]="dropdownSettings" [data]="plots"
-                          [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" 
-                          (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)" (onDeSelectAll)="onItemDeselectAll($event)">
-                        </ng-multiselect-dropdown>
-                      </div>
+                  <!-- <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="" class="form-control-label">Talhões</label>
+                      <ng-multiselect-dropdown [placeholder]="'Talhões'" [settings]="dropdownSettings" [data]="fields"
+                        [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        (onDeSelectAll)="onItemDeselectAll($event)" (onFilterChange)="onFilterChange($event)">
+                      </ng-multiselect-dropdown> 
                     </div>
-                  </div>
+                  </div>-->
                 </div>
+              </div>
               <div class="card-footer">
                 <div class="d-flex">
                   <button class="btn btn-success" [disabled]="!form.valid" (click)="savePlanting()">
@@ -134,8 +136,8 @@
                   </button>
                 </div>
               </div>
-              <pre>Model: {{ form.value | json }}</pre>
-              <pre>Model: {{ form.valid | json }}</pre>
+              <!-- <pre>Model: {{ form.value | json }}</pre>
+              <pre>Model: {{ form.valid | json }}</pre> -->
               <hr class="my-4" />
             </form>
           </div>

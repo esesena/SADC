@@ -12,7 +12,8 @@ namespace SADC.Application.Dtos
     public class EmployeeDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Cpf { get; set; }
         public string Function { get; set; }
         public int Workload { get; set; }
@@ -21,9 +22,8 @@ namespace SADC.Application.Dtos
         public string Cep { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int UserId { get; set; }
-        public UserDto User { get; set; }
         public string ImageURL { get; set; }
-        public IEnumerable<FarmDto> Farm { get; set; }
+        public List<int> FarmId { get; set; }
+        public ICollection<EmployeesFarmsDto> Farms { get; set; }
     }
 }

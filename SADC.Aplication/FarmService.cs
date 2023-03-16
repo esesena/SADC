@@ -4,12 +4,6 @@ using SADC.Application.Dtos;
 using SADC.Domain;
 using SADC.Persistence.Contracts;
 using SADC.Persistence.Models;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SADC.Application
 {
@@ -26,6 +20,7 @@ namespace SADC.Application
             _farmPersist = farmPersist;
             _mapper = mapper;
         }
+
         public async Task<FarmDto> AddFarms(FarmDto model)
         {
             try

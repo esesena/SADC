@@ -57,9 +57,8 @@ namespace SADC.Application
                 }
 
                 return null;
-
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Erro ao tentar criar usuário. Erro: {ex.Message}");
             }

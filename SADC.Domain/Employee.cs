@@ -13,7 +13,8 @@ namespace SADC.Domain
         //[Display(Name = "Nome")]
         //[StringLength(100, MinimumLength = 3, ErrorMessage = "{0} deve ter entre {2} e {1} caracteres!")]
         //[Required(ErrorMessage = "Nome do funcionário é obrigatório!")]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         //[Display(Name = "CPF")]
         //[StringLength(11, ErrorMessage = "{0} deve ter {1} caracteres!")]
@@ -52,9 +53,7 @@ namespace SADC.Domain
         //[StringLength(2, MinimumLength = 2, ErrorMessage = "{0} deve conter {1} caracteres!")]
         //[Required(ErrorMessage = "{0} é obrigatório!")]
         public string State { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
         public string ImageURL { get; set; }
-        public IEnumerable<EmployeesFarms> EmployeesFarms { get; set; }
+        public ICollection<EmployeesFarms> Farms { get; set; }
     }
 }

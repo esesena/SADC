@@ -70,11 +70,11 @@
         <p>Clique em Talhão para adicionar e preencher novos Talhões</p>
         <div class="form-row p-1">
           <div [formGroup]="form" class="col">
-            <div formArrayName="plots" *ngFor="let plot of plots.controls; let i=index">
+            <div formArrayName="fields" *ngFor="let field of fields.controls; let i=index">
               <fieldset [formGroupName]="i" class="form-group">
                 <legend class="d-flex justify-content-between capitalize">
-                  {{ returnPlotName(plots.get(i+'.name').value) }}
-                  <button (click)="removePlot(template, i)" class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
+                  {{ returnFieldName(fields.get(i+'.name').value) }}
+                  <button (click)="removeField(template, i)" class="p-2 btn btn-sm btn-outline-warning mb-1 d-flex"
                     tooltip="Excluir Talhão" [adaptivePosition]="false" [delay]="500" placement="left">
                     <i class="fa fa-window-close my-1"></i>
                     <b class="ml-1 d-none d-sm-block">Excluir</b>
@@ -83,22 +83,22 @@
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label>Nome</label>
-                    <input [ngClass]="cssValidator(plots.get(i+'.name'))" type="text" class="form-control"
+                    <input [ngClass]="cssValidator(fields.get(i+'.name'))" type="text" class="form-control"
                       formControlName="name" placeholder="Talhão">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Localização</label>
-                    <input type="text" class="form-control" [ngClass]="cssValidator(plots.get(i+'.location'))"
+                    <input type="text" class="form-control" [ngClass]="cssValidator(fields.get(i+'.location'))"
                       formControlName="location" placeholder="000">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Área (ha)</label>
-                    <input type="text" class="form-control" [ngClass]="cssValidator(plots.get(i+'.size'))"
+                    <input type="text" class="form-control" [ngClass]="cssValidator(fields.get(i+'.size'))"
                       formControlName="size" placeholder="000,00">
                   </div>
                   <div class="form-group col-md-4">
                     <label>Tipo de Solo</label>
-                    <input type="text" class="form-control" [ngClass]="cssValidator(plots.get(i+'.soilType'))"
+                    <input type="text" class="form-control" [ngClass]="cssValidator(fields.get(i+'.soilType'))"
                       formControlName="soilType" placeholder="Tipo de Solo">
                   </div>
                 </div>
@@ -106,7 +106,7 @@
             </div>
           </div>
         </div>
-        <button (click)="addPlots()" class="d-flex btn btn-outline-primary">
+        <button (click)="addFields()" class="d-flex btn btn-outline-primary">
           <i class="fa fa-plus-circle my-1"></i>
           <b class="ml-1">Talhão</b>
         </button>
@@ -116,7 +116,7 @@
           <button class="btn btn-outline-secondary mr-auto border">
             Cancelar Alteração
           </button>
-          <button [disabled]="!form.controls.plots.valid" (click)="savePlots()" class="btn btn-success">
+          <button [disabled]="!form.controls.fields.valid" (click)="saveFields()" class="btn btn-success">
             Salvar Talhões
           </button>
         </div>

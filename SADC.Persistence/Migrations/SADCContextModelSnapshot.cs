@@ -124,27 +124,25 @@ namespace SADC.Persistence.Migrations
                     b.Property<string>("Cpf")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Function")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("State")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Workload")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
                 });
@@ -185,6 +183,34 @@ namespace SADC.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Farms");
+                });
+
+            modelBuilder.Entity("SADC.Domain.Field", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("FarmId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<double>("Size")
+                        .HasColumnType("double");
+
+                    b.Property<string>("SoilType")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FarmId");
+
+                    b.ToTable("Fields");
                 });
 
             modelBuilder.Entity("SADC.Domain.Identity.Role", b =>
@@ -237,16 +263,10 @@ namespace SADC.Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Function")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageURL")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
                     b.Property<bool>("LockoutEnabled")
@@ -283,6 +303,8 @@ namespace SADC.Persistence.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -359,9 +381,6 @@ namespace SADC.Persistence.Migrations
                     b.Property<decimal>("SeedAmount")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<decimal>("SeedDistance")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<int>("SeedId")
                         .HasColumnType("int");
 
@@ -380,47 +399,19 @@ namespace SADC.Persistence.Migrations
                     b.ToTable("Plantings");
                 });
 
-            modelBuilder.Entity("SADC.Domain.PlantingPlot", b =>
+            modelBuilder.Entity("SADC.Domain.PlantingField", b =>
                 {
                     b.Property<int>("PlantingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlotId")
+                    b.Property<int>("FieldId")
                         .HasColumnType("int");
 
-                    b.HasKey("PlantingId", "PlotId");
+                    b.HasKey("PlantingId", "FieldId");
 
-                    b.HasIndex("PlotId");
+                    b.HasIndex("FieldId");
 
-                    b.ToTable("PlantingPlot");
-                });
-
-            modelBuilder.Entity("SADC.Domain.Plot", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("FarmId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<double>("Size")
-                        .HasColumnType("double");
-
-                    b.Property<string>("SoilType")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FarmId");
-
-                    b.ToTable("Plots");
+                    b.ToTable("PlantingFields");
                 });
 
             modelBuilder.Entity("SADC.Domain.Seed", b =>
@@ -494,27 +485,16 @@ namespace SADC.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SADC.Domain.Employee", b =>
-                {
-                    b.HasOne("SADC.Domain.Identity.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SADC.Domain.EmployeesFarms", b =>
                 {
                     b.HasOne("SADC.Domain.Employee", "Employee")
-                        .WithMany("EmployeesFarms")
+                        .WithMany("Farms")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SADC.Domain.Farm", "Farm")
-                        .WithMany("EmployeesFarms")
+                        .WithMany("Employees")
                         .HasForeignKey("FarmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -522,6 +502,26 @@ namespace SADC.Persistence.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Farm");
+                });
+
+            modelBuilder.Entity("SADC.Domain.Field", b =>
+                {
+                    b.HasOne("SADC.Domain.Farm", "Farm")
+                        .WithMany("Fields")
+                        .HasForeignKey("FarmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Farm");
+                });
+
+            modelBuilder.Entity("SADC.Domain.Identity.User", b =>
+                {
+                    b.HasOne("SADC.Domain.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("SADC.Domain.Identity.UserRole", b =>
@@ -562,46 +562,40 @@ namespace SADC.Persistence.Migrations
                     b.Navigation("Seed");
                 });
 
-            modelBuilder.Entity("SADC.Domain.PlantingPlot", b =>
+            modelBuilder.Entity("SADC.Domain.PlantingField", b =>
                 {
+                    b.HasOne("SADC.Domain.Field", "Field")
+                        .WithMany("Planting")
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SADC.Domain.Planting", "Planting")
-                        .WithMany("PlantingPlot")
+                        .WithMany("Fields")
                         .HasForeignKey("PlantingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SADC.Domain.Plot", "Plot")
-                        .WithMany("PlantingPlot")
-                        .HasForeignKey("PlotId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Field");
 
                     b.Navigation("Planting");
-
-                    b.Navigation("Plot");
-                });
-
-            modelBuilder.Entity("SADC.Domain.Plot", b =>
-                {
-                    b.HasOne("SADC.Domain.Farm", "Farm")
-                        .WithMany("Plots")
-                        .HasForeignKey("FarmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Farm");
                 });
 
             modelBuilder.Entity("SADC.Domain.Employee", b =>
                 {
-                    b.Navigation("EmployeesFarms");
+                    b.Navigation("Farms");
                 });
 
             modelBuilder.Entity("SADC.Domain.Farm", b =>
                 {
-                    b.Navigation("EmployeesFarms");
+                    b.Navigation("Employees");
 
-                    b.Navigation("Plots");
+                    b.Navigation("Fields");
+                });
+
+            modelBuilder.Entity("SADC.Domain.Field", b =>
+                {
+                    b.Navigation("Planting");
                 });
 
             modelBuilder.Entity("SADC.Domain.Identity.Role", b =>
@@ -616,12 +610,7 @@ namespace SADC.Persistence.Migrations
 
             modelBuilder.Entity("SADC.Domain.Planting", b =>
                 {
-                    b.Navigation("PlantingPlot");
-                });
-
-            modelBuilder.Entity("SADC.Domain.Plot", b =>
-                {
-                    b.Navigation("PlantingPlot");
+                    b.Navigation("Fields");
                 });
 #pragma warning restore 612, 618
         }

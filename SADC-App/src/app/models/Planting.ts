@@ -1,5 +1,5 @@
 import { Farm } from './Farm';
-import { Plot } from './Plot';
+import { Field } from './Field';
 import { Seed } from './Seed';
 
 export class Planting {
@@ -14,6 +14,8 @@ seedId: number;
 seed: Seed;
 seedAmount: number;
 fertilizing: string;
+farmId: number;
 farm: Farm;
-plot: Plot[];
+fieldId: number[];
+fields: Field[];
 }

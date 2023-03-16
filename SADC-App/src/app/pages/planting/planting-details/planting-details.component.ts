@@ -1,11 +1,11 @@
-import { Farm } from './../../../models/Farm';
-import { FarmService } from './../../../services/farm.service';
-import { PlotService } from './../../../services/plot.service';
-import { Plot } from './../../../models/Plot';
-import { Seed } from 'src/app/models/Seed';
-import { Pagination, PaginatedResult } from './../../../models/Pagination';
-import { Observable } from 'rxjs';
-import { SeedService } from './../../../services/seed.service';
+import { Farm } from "./../../../models/Farm";
+import { FarmService } from "./../../../services/farm.service";
+import { FieldService } from "./../../../services/field.service";
+import { Field } from "./../../../models/Field";
+import { Seed } from "src/app/models/Seed";
+import { Pagination, PaginatedResult } from "./../../../models/Pagination";
+import { Observable } from "rxjs";
+import { SeedService } from "./../../../services/seed.service";
 import { ToastrService } from "ngx-toastr";
 import { PlantingService } from "./../../../services/planting.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -18,10 +18,8 @@ import {
 } from "@angular/forms";
 import { Planting } from "./../../../models/Planting";
 import { Component, OnInit } from "@angular/core";
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { IDropdownSettings } from "ng-multiselect-dropdown";
+import { NgbDate, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-planting-details",
@@ -33,10 +31,11 @@ export class PlantingDetailsComponent implements OnInit {
   planting = {} as Planting;
   form: FormGroup;
   saveState = "post";
+  dateConverter: Date;
 
   seeds: Seed[] = [];
   farms: Farm[] = [];
-  plots: Plot[] = [];
+  fields: Field[] = [];
   public pagination = {} as Pagination;
 
   selectedItems: any = [];
@@ -55,7 +54,7 @@ export class PlantingDetailsComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private plantingService: PlantingService,
     private farmService: FarmService,
-    private plotService: PlotService,
+    private fieldService: FieldService,
     private seedService: SeedService,
     private toastr: ToastrService,
     private router: Router
@@ -74,43 +73,57 @@ export class PlantingDetailsComponent implements OnInit {
 
     this.dropdownSettings = {
       singleSelection: false,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'Marcar Todos',
-      unSelectAllText: 'Desmarcar Todos',
+      idField: "id",
+      textField: "name",
+      selectAllText: "Marcar Todos",
+      unSelectAllText: "Desmarcar Todos",
       itemsShowLimit: 5,
-      allowSearchFilter: true
+      allowSearchFilter: true,
     };
+
+    // if (this.saveState == "put") {
+    //   for (let i = 0; i < this.planting.fieldId.length; i++) {
+    //     const item = this.planting.fieldId[i];
+    //     if (!this.selectedItems.includes(item)) {
+    //       this.selectedItems.push(item);
+    //     }
+    //   }
+    //   console.log(this.selectedItems)
+    // }
   }
 
-  onItemSelect(item: any) {
-    if (!this.selectedItems.includes(item.id)) {
-      this.selectedItems.push(item.id);
-    }
-    this.planting.plot = this.selectedItems
-  }
-  
-  onItemDeSelect(item: any) {
-    const index = this.selectedItems.indexOf(item.id);
-    if (index !== -1) {
-      this.selectedItems.splice(index, 1);
-    }
-  }
-  
-  onSelectAll(items: any) {
-    for (let i = 0; i < items.length; i++) {
-      const item = items[i];
-      if (!this.selectedItems.includes(item.id)) {
-        this.selectedItems.push(item.id);
-      }
-    }
-    this.planting.plot = this.selectedItems;
-  }
-  
-    onItemDeselectAll(items: any) {
-      this.selectedItems = [],
-      this.planting.plot = this.selectedItems;
-    }
+  // onFilterChange(ev: any){
+
+  // }
+
+  // onItemSelect(item: any) {
+  //   if (!this.selectedItems.includes(item.id)) {
+  //     this.selectedItems.push(item.id);
+  //   }
+  //   this.planting.fieldId = this.selectedItems;
+  // }
+
+  // onItemDeSelect(item: any) {
+  //   const index = this.selectedItems.indexOf(item.id);
+  //   if (index !== -1) {
+  //     this.selectedItems.splice(index, 1);
+  //   }
+  //   this.planting.fieldId = this.selectedItems;
+  // }
+
+  // onSelectAll(items: any) {
+  //   for (let i = 0; i < items.length; i++) {
+  //     const item = items[i];
+  //     if (!this.selectedItems.includes(item.id)) {
+  //       this.selectedItems.push(item.id);
+  //     }
+  //   }
+  //   this.planting.fieldId = this.selectedItems;
+  // }
+
+  // onItemDeselectAll(items: any) {
+  //   (this.selectedItems = []), (this.planting.fieldId = this.selectedItems);
+  // }
 
   public validation(): void {
     this.form = this.fb.group({
@@ -120,11 +133,11 @@ export class PlantingDetailsComponent implements OnInit {
       typePlanting: ["", Validators.required],
       weatherPlanting: ["", Validators.required],
       airMoisture: ["", Validators.required],
-      seed: ["", Validators.required],
+      seedId: ["", Validators.required],
       seedAmount: ["", Validators.required],
       fertilizing: ["", Validators.required],
-      farm: ["", Validators.required],
-      plot: ["", Validators.required],
+      farmId: ["", Validators.required],
+      fieldId: [""],
     });
   }
 
@@ -145,7 +158,10 @@ export class PlantingDetailsComponent implements OnInit {
         (paginatedResult: PaginatedResult<Farm[]>) => {
           this.farms = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
-          console.log("Fazendas: ",this.farms);
+          if (this.saveState == "put") {
+            this.loadFields(this.planting.farm.id);
+          }
+          console.log("Fazendas: ", this.farms);
         },
         (error: any) => {
           this.toastr.error("Erro ao Carregar os Fazendas", "Erro!");
@@ -153,14 +169,14 @@ export class PlantingDetailsComponent implements OnInit {
       );
   }
 
-  public loadSeeds(): void { 
+  public loadSeeds(): void {
     this.seedService
       .getSeeds(this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe(
         (paginatedResult: PaginatedResult<Seed[]>) => {
           this.seeds = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
-          console.log("Sementes: ",this.seeds);
+          console.log("Sementes: ", this.seeds);
         },
         (error: any) => {
           this.toastr.error("Erro ao Carregar os Sementes", "Erro!");
@@ -168,27 +184,11 @@ export class PlantingDetailsComponent implements OnInit {
       );
   }
 
-  public loadPlots(farmId: any ): void {
-    if (farmId >=1 ) {
-      this.plotService.getPlotsByFarmId(farmId).subscribe(
-        (plotsRetorno: Plot[]) => {
-          this.plots = plotsRetorno;
-          console.log("Talhões: ",this.plots);
-        },
-        (error: any) => {
-          this.toastr.error("Erro ao tentar carregar talhões", "Erro");
-          console.error(error);
-        }
-      );
-    } else {
-      this.toastr.error("Fazenda não selecionada", "Erro");
-    }
-  }
-
   public loadPlanting(): void {
     this.plantingId = +this.activatedRouter.snapshot.paramMap.get("id");
 
     if (this.plantingId !== null && this.plantingId !== 0) {
+      this.saveState = "put";
       this.plantingService.getPlantingById(this.plantingId).subscribe(
         (planting: Planting) => {
           this.planting = { ...planting };
@@ -202,6 +202,23 @@ export class PlantingDetailsComponent implements OnInit {
     }
   }
 
+  public loadFields(farmId: any): void {
+    if (farmId >= 1) {
+      this.fieldService.getFieldsByFarmId(farmId).subscribe(
+        (fieldsRetorno: Field[]) => {
+          this.fields = fieldsRetorno;
+          console.log("Talhões: ", this.fields);
+        },
+        (error: any) => {
+          this.toastr.error("Erro ao tentar carregar talhões", "Erro");
+          console.error(error);
+        }
+      );
+    } else {
+      this.toastr.error("Fazenda não selecionada", "Erro");
+    }
+  }
+
   public savePlanting(): void {
     if (this.form.valid) {
       this.planting =
@@ -209,10 +226,14 @@ export class PlantingDetailsComponent implements OnInit {
           ? { ...this.form.value }
           : { id: this.planting.id, ...this.form.value };
 
-      this.plantingService[this.saveState](this.planting).subscribe(
+      this.plantingService[this.saveState](
+        this.planting.farm,
+        this.planting.seed,
+        this.planting
+      ).subscribe(
         (plantingRetorno: Planting) => {
           this.toastr.success("Plantio salva com Sucesso!", "Sucesso");
-          this.router.navigate([`plantios / detalhe /${plantingRetorno.id}`]);
+          this.router.navigate([`plantacoes/lista `]);
         },
         (error: any) => {
           console.error(error);
@@ -220,24 +241,5 @@ export class PlantingDetailsComponent implements OnInit {
         }
       );
     }
-  }
-
-
-  readonly DELIMITER = '/';
-
-  parse(value: string): NgbDateStruct | null {
-    if (value) {
-      const date = value.split(this.DELIMITER);
-      return {
-        day : parseInt(date[0], 10),
-        month : parseInt(date[1], 10),
-        year : parseInt(date[2], 10)
-      };
-    }
-    return null;
-  }
-
-  format(date: NgbDateStruct | null): string {
-    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
   }
 }

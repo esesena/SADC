@@ -26,8 +26,8 @@ import { ComponentsModule } from './components/components.module';
     RouterModule,
     AppRoutingModule,
     ToastrModule.forRoot({
-      timeOut: 4000,
-      positionClass: 'toast-bottom-right',
+      timeOut: 2000,
+      positionClass: 'toast-center-center',
       preventDuplicates: true,
       progressBar: true,
     }),

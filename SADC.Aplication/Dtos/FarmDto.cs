@@ -1,14 +1,4 @@
-﻿using SADC.Domain.Identity;
-using SADC.Domain;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace SADC.Application.Dtos
+﻿namespace SADC.Application.Dtos
 {
     public class FarmDto
     { 
@@ -17,8 +7,6 @@ namespace SADC.Application.Dtos
         public string Location { get; set; }
         public string ImageURL { get; set; }
         public double Size { get; set; }
-
-        public IEnumerable<EmployeeDto> Employees { get; set; }
-        public IEnumerable<PlotDto> Plots { get; set; }
+        public ICollection<FieldDto> Fields { get; set; }
     }
 }

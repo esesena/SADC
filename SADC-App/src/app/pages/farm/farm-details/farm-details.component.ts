@@ -1,5 +1,5 @@
-import { Plot } from "./../../../models/Plot";
-import { PlotService } from "./../../../services/plot.service";
+import { Field } from "./../../../models/Field";
+import { FieldService } from "./../../../services/field.service";
 import { ToastrService } from "ngx-toastr";
 import { FarmService } from "./../../../services/farm.service";
 import { Farm } from "./../../../models/Farm";
@@ -28,14 +28,14 @@ export class FarmDetailsComponent implements OnInit {
   saveState = "post";
   file: File;
   imageURL = 'assets/img/brand/upload.png';
-  lastPlot = { id: 0, name: "", indice: 0 };
+  lastField = { id: 0, name: "", indice: 0 };
 
   get editMode(): boolean {
     return this.saveState === "put";
   }
 
-  get plots(): FormArray {
-    return this.form.get("plots") as FormArray;
+  get fields(): FormArray {
+    return this.form.get("fields") as FormArray;
   }
 
   get f(): any {
@@ -46,7 +46,7 @@ export class FarmDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
     private farmService: FarmService,
-    private plotService: PlotService,
+    private fieldService: FieldService,
     private toastr: ToastrService,
     private router: Router,
     // private modalRef: NgbModalRef,
@@ -67,7 +67,7 @@ export class FarmDetailsComponent implements OnInit {
             this.imageURL =
               environment.apiURL + "resources/farmimage/" + this.farm.imageURL;
           }
-          this.loadPlots();
+          this.loadFields();
         },
         (error: any) => {
           this.toastr.error("Erro ao tentar carregar Fazenda.", "Erro!");
@@ -77,11 +77,11 @@ export class FarmDetailsComponent implements OnInit {
     }
   }
 
-  public loadPlots(): void {
-    this.plotService.getPlotsByFarmId(this.farmId).subscribe(
-      (plotsRetorno: Plot[]) => {
-        plotsRetorno.forEach((plot) => {
-          this.plots.push(this.postPlot(plot));
+  public loadFields(): void {
+    this.fieldService.getFieldsByFarmId(this.farmId).subscribe(
+      (fieldsRetorno: Field[]) => {
+        fieldsRetorno.forEach((field) => {
+          this.fields.push(this.postField(field));
         });
       },
       (error: any) => {
@@ -109,21 +109,21 @@ export class FarmDetailsComponent implements OnInit {
       location: ["", Validators.required],
       size: ["", Validators.required],
       imageURL: [''],
-      plots: this.fb.array([]),
+      fields: this.fb.array([]),
     });
   }
 
-  addPlots(): void {
-    this.plots.push(this.postPlot({ id: 0 } as Plot));
+  addFields(): void {
+    this.fields.push(this.postField({ id: 0 } as Field));
   }
 
-  postPlot(plot: Plot): FormGroup {
+  postField(field: Field): FormGroup {
     return this.fb.group({
-      id: [plot.id],
-      name: [plot.name, Validators.required],
-      location: [plot.location, Validators.required],
-      size: [plot.size, Validators.required],
-      soilType: [plot.soilType],
+      id: [field.id],
+      name: [field.name, Validators.required],
+      location: [field.location, Validators.required],
+      size: [field.size, Validators.required],
+      soilType: [field.soilType],
     });
   }
 
@@ -135,7 +135,7 @@ export class FarmDetailsComponent implements OnInit {
     return name === null || name === "" ? "Nome da Fazenda" : name;
   }
 
-  public returnPlotName(name: string): string {
+  public returnFieldName(name: string): string {
     return name === null || name === "" ? "Nome do talhão" : name;
   }
 
@@ -159,10 +159,10 @@ export class FarmDetailsComponent implements OnInit {
     }
   }
 
-  public savePlots(): void {
-    if (this.form.controls.plots.valid) {
-      this.plotService
-        .savePlot(this.farmId, this.form.value.plots)
+  public saveFields(): void {
+    if (this.form.controls.fields.valid) {
+      this.fieldService
+        .saveField(this.farmId, this.form.value.fields)
         .subscribe(
           () => {
             this.toastr.success('Talhões salvos com Sucesso!', 'Sucesso!');
@@ -199,10 +199,10 @@ export class FarmDetailsComponent implements OnInit {
     );
   }
 
-  // public removePlot(template: TemplateRef<any>, indice: number): void {
-  //   this.lastPlot.id = this.plots.get(indice + '.id').value;
-  //   this.lastPlot.name = this.plots.get(indice + '.name').value;
-  //   this.lastPlot.indice = indice;
+  // public removeField(template: TemplateRef<any>, indice: number): void {
+  //   this.lastField.id = this.fields.get(indice + '.id').value;
+  //   this.lastField.name = this.fields.get(indice + '.name').value;
+  //   this.lastField.indice = indice;
 
   //   this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   // }

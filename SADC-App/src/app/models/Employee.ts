@@ -3,7 +3,8 @@ import { UserUpdate } from "./identity/UserUpdate";
 
 export interface Employee {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   cpf: string;
   function: string;
   workload: number;
@@ -13,7 +14,5 @@ export interface Employee {
   city: string;
   state: string;
   imageURL: string;
-  userId: number;
-  user: UserUpdate;
   farm: Farm[];
 }

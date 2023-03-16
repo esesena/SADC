@@ -2,7 +2,7 @@
   <div class="col">
     <div class="card shadow">
       <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-        <h3 class="mb-0">Lista de Sementes</h3>
+        <h3 class="mb-0">Plantações</h3>
         <div class="input-group mb-2 col-8">
           <div class="input-group-prepend">
             <div class="input-group-text">Filtro: </div>
@@ -18,31 +18,31 @@
         <table class="table align-items-center table-flush">
           <thead class="thead-light">
             <tr>
-              <th scope="col">Cultura</th>
-              <th scope="col">Descricao</th>
-              <th scope="col">Localização</th>
-              <th scope="col">Área (ha)</th>
+              <th scope="col">Safra</th>
+              <th scope="col">Tipo de Plantio</th>
+              <th scope="col">semente</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody *ngIf="plantings && plantings.length">
             <!-- <tbody> -->
-            <tr *ngFor="let planting of plantings" (click)="detalhePlanting(planting.id)" style="cursor: pointer">
-              <td>
-                {{ planting.culture }}
+            <tr *ngFor="let planting of plantings">
+              <td (click)="detailPlanting(planting.id)" style="cursor: pointer">
+                {{ planting.harvest }}
               </td>
-              <td>{{ planting.name }}</td>
-              <td>
-                {{ planting.height }}
+              <td (click)="detailPlanting(planting.id)" style="cursor: pointer">{{ planting.typePlanting }}</td>
+              <td (click)="detailPlanting(planting.id)" style="cursor: pointer">
+                {{ planting.seed.description }}
               </td>
-              <td>
-                {{ planting.maturationGroup }}
-              </td>
+
               <td class="text-right">
+
                 <button type="button" class="btn btn-danger btn-lg d-flex align-items-center justify-content-center"
-                  tooltip="Excluir" style="width: 20px; height: 30px" (click)="openModal($event, template, planting.id)">
+                  tooltip="Excluir" style="width: 20px; height: 30px" (click)="open(content)">
                   <i class="fa fa-trash"></i>
                 </button>
+
+
               </td>
             </tr>
           </tbody>
@@ -62,3 +62,12 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #content>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar o Plantio de Código {{this.plantingId}}?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>

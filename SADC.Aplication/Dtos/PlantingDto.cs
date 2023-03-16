@@ -1,12 +1,4 @@
-﻿using SADC.Domain.Enums;
-using SADC.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SADC.Application.Dtos
+﻿namespace SADC.Application.Dtos
 {
     public class PlantingDto
     {
@@ -20,11 +12,10 @@ namespace SADC.Application.Dtos
         public int SeedId { get; set; }
         public SeedDto Seed { get; set; }
         public decimal SeedAmount { get; set; }
-        public decimal SeedDistance { get; set; }
         public string Fertilizing { get; set; }
         public int FarmId { get; set; }
         public FarmDto Farm { get; set; }
-        public IEnumerable<PlotDto> Plot { get; set; }
-
+        public List<int> FieldId { get; set; }
+        public IEnumerable<PlantingFieldDto> Fields { get; set; }
     }
 }

@@ -22,7 +22,6 @@ export class EmployeeService {
     const paginatedResult: PaginatedResult<Employee[]> = new PaginatedResult<
       Employee[]
     >();
-
     let params = new HttpParams();
 
     if (page != null && itemsPerPage != null) {
@@ -33,7 +32,7 @@ export class EmployeeService {
     if (term != null && term != '') params = params.append('term', term);
 
     return this.http
-      .get<Employee[]>(this.baseURL + '/all', { observe: 'response', params })
+      .get<Employee[]>(this.baseURL, { observe: 'response', params })
       .pipe(
         take(1),
         map((response) => {

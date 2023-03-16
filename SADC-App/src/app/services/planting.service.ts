@@ -1,13 +1,13 @@
-import { take, map } from 'rxjs/operators';
-import { Planting } from './../models/Planting';
-import { Observable } from 'rxjs';
-import { PaginatedResult } from './../models/Pagination';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { take, map } from "rxjs/operators";
+import { Planting } from "./../models/Planting";
+import { Observable } from "rxjs";
+import { PaginatedResult } from "./../models/Pagination";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class PlantingService {
   baseURL = environment.apiURL + "api/planting";
@@ -48,10 +48,12 @@ export class PlantingService {
   }
 
   public getPlantingById(id: number): Observable<Planting> {
-    return this.http.get<Planting>(`${this.baseURL}/${id}`).pipe(take(1));
+    return this.http
+      .get<Planting>(`${this.baseURL}/${id}`)
+      .pipe(take(1));
   }
 
-  public post(planting: Planting): Observable<Planting> {
+  public post(farmId: number, seedId: number, planting: Planting): Observable<Planting> {
     return this.http.post<Planting>(this.baseURL, planting).pipe(take(1));
   }
 
@@ -64,5 +66,4 @@ export class PlantingService {
   public deletePlanting(id: number): Observable<any> {
     return this.http.delete(`${this.baseURL}/${id}`).pipe(take(1));
   }
-
 }

@@ -16,8 +16,10 @@ namespace SADC.Persistence.Context
         public DbSet<Farm> Farms { get; set; }
         public DbSet<Notice> Notices { get; set; }
         public DbSet<Planting> Plantings { get; set; }
-        public DbSet<Plot> Plots { get; set; }
+        public DbSet<Field> Fields { get; set; }
         public DbSet<Seed> Seeds { get; set; }
+        public DbSet<PlantingField> PlantingFields { get; set; }
+        public DbSet<EmployeesFarms> EmployeesFarms { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,14 +37,15 @@ namespace SADC.Persistence.Context
                 .IsRequired();
             });
 
-            modelBuilder.Entity<PlantingPlot>()
-                            .HasKey(PP => new { PP.PlantingId, PP.PlotId });
+            modelBuilder.Entity<PlantingField>()
+                        .HasKey(PF => new { PF.PlantingId, PF.FieldId });
 
             modelBuilder.Entity<EmployeesFarms>()
-                            .HasKey(FC => new { FC.FarmId, FC.EmployeeId });
+                        .HasKey(EF => new { EF.FarmId, EF.EmployeeId });
+
 
             modelBuilder.Entity<Farm>()
-                .HasMany(f => f.Plots)
+                .HasMany(f => f.Fields)
                 .WithOne(p => p.Farm)
                 .OnDelete(DeleteBehavior.Cascade);
         }

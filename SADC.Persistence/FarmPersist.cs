@@ -1,14 +1,7 @@
 ﻿using SADC.Domain;
-using SADC.Domain.Identity;
 using SADC.Persistence.Context;
 using SADC.Persistence.Contracts;
 using SADC.Persistence.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace SADC.Persistence
@@ -25,11 +18,12 @@ namespace SADC.Persistence
         public async Task<PageList<Farm>> GetAllFarmsAsync(PageParams pageParams)
         {
             IQueryable<Farm> query = _context.Farms
-                            .Include(c => c.Plots);
+                            .Include(c => c.Fields);
 
             query = query.AsNoTracking()
-                         .Where(e => (e.Name.ToLower().Contains(pageParams.Term.ToLower()) || e.Location.ToLower().Contains(pageParams.Term.ToLower())))
-            .OrderBy(e => e.Id);
+                         .Where(e => (e.Name.ToLower().Contains(pageParams.Term.ToLower()) ||
+                                      e.Location.ToLower().Contains(pageParams.Term.ToLower())))
+                         .OrderBy(e => e.Id);
 
             return await PageList<Farm>.CreateAsync(query, pageParams.PageNumber, pageParams.pageSize);
         }
@@ -37,12 +31,13 @@ namespace SADC.Persistence
         public async Task<Farm> GetFarmByIdAsync(int farmId)
         {
             IQueryable<Farm> query = _context.Farms
-                            .Include(c => c.Plots);
+                            .Include(c => c.Fields);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
             .Where(e => e.Id == farmId);
 
             return await query.FirstOrDefaultAsync();
         }
+
     }
 }

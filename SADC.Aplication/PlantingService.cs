@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SADC.Application.Contracts;
 using SADC.Application.Dtos;
 using SADC.Domain;
 using SADC.Persistence;
+using SADC.Persistence.Context;
 using SADC.Persistence.Contracts;
 using SADC.Persistence.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
 
 namespace SADC.Application
 {
@@ -18,28 +17,50 @@ namespace SADC.Application
         private readonly IGeralPersist _geralPersist;
         private readonly IPlantingPersist _plantingPersist;
         private readonly IMapper _mapper;
+        private readonly IFarmPersist _farmPersist;
+        private readonly ISeedPersist _seedPersist;
+        private readonly IFieldPersist _fieldPersist;
+
+
         public PlantingService(IGeralPersist geralPersist,
                              IPlantingPersist palntingPersist,
-                             IMapper mapper)
+                             IMapper mapper,
+                             IFarmPersist farmPersist,
+                             ISeedPersist seedPersist,
+                             IFieldPersist fieldPersist)
         {
             _geralPersist = geralPersist;
             _plantingPersist = palntingPersist;
             _mapper = mapper;
+            _farmPersist = farmPersist;
+            _seedPersist = seedPersist;
+            _fieldPersist = fieldPersist;
         }
 
         public async Task<PlantingDto> AddPlanting(PlantingDto model)
         {
             try
             {
+                Seed seed = await _seedPersist.GetSeedByIdAsync(model.SeedId);
+                Farm farm = await _farmPersist.GetFarmByIdAsync(model.FarmId);
+
+                List<int> fieldIds = new List<int>();
+                foreach (var field in model.FieldId)
+                {
+                    fieldIds.Add(field);
+                }
+
                 var planting = _mapper.Map<Planting>(model);
+                planting.FarmId = farm.Id;
+                planting.SeedId = seed.Id;
 
                 _geralPersist.Add<Planting>(planting);
 
                 if (await _geralPersist.SaveChangesAsync())
                 {
-                    var plantingRetorno = await _plantingPersist.GetPlantingByIdAsync(planting.Id);
-
-                    return _mapper.Map<PlantingDto>(plantingRetorno);
+                    var plantingReturn = _mapper.Map<PlantingDto>(planting);
+                    await _plantingPersist.AddPlantingField(planting.Id, fieldIds);
+                    return plantingReturn;
                 }
                 return null;
             }
@@ -98,9 +119,10 @@ namespace SADC.Application
             try
             {
                 var planting = await _plantingPersist.GetPlantingByIdAsync(plantingId);
-                if (planting == null) return null;
+                    if (planting == null) return null;
 
                 var resultado = _mapper.Map<PlantingDto>(planting);
+                resultado.FieldId = planting.Fields.Select(f => f.FieldId).ToList();
 
                 return resultado;
             }

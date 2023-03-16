@@ -1,4 +1,4 @@
-import { Plot } from './Plot';
+import { Field } from './Field';
 import { Employee } from './Employee';
 import { User } from '../models/identity/User';
 
@@ -8,5 +8,5 @@ export interface Farm {
     location: string; 
     imageURL: string; 
     size: number; 
-    plots: Plot[]; 
+    fields: Field[]; 
 }

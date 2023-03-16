@@ -1,4 +1,4 @@
-import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateNativeAdapter, NgbDateParserFormatter, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { PlantingDetailsComponent } from './../../pages/planting/planting-details/planting-details.component';
 import { PlantingListComponent } from './../../pages/planting/planting-list/planting-list.component';
@@ -49,6 +49,7 @@ import { TablesComponent } from '../../pages/tables/tables.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
+    NgbModalModule,
     ClipboardModule,
     ReactiveFormsModule,
     NgbPaginationModule,
@@ -59,8 +60,8 @@ import { TablesComponent } from '../../pages/tables/tables.component';
     NgbDatepickerModule,
     NgMultiSelectDropDownModule.forRoot(),
     ToastrModule.forRoot({
-      timeOut: 4000,
-      positionClass: 'toast-bottom-right',
+      timeOut: 2000,
+      positionClass: 'toast-top-center',
       preventDuplicates: true,
       progressBar: true,
     }),
@@ -91,6 +92,7 @@ import { TablesComponent } from '../../pages/tables/tables.component';
     FarmService,
     EmployeeService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}
   ],
 })
 

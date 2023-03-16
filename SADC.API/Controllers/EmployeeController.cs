@@ -28,12 +28,12 @@ namespace SADC.API.Controllers
             _util = util;
         }
 
-        [HttpGet("all")]
+        [HttpGet()]
         public async Task<IActionResult> GetAll([FromQuery] PageParams pageParams)
         {
             try
             {
-                var employees = await _employeeService.GetAllEmployeesAsync(pageParams, true);
+                var employees = await _employeeService.GetAllEmployeesAsync(pageParams);
                 if (employees == null) return NoContent();
 
                 Response.AddPagination(employees.CurrentPage, employees.PageSize, employees.TotalCount, employees.TotalPages);
@@ -47,23 +47,23 @@ namespace SADC.API.Controllers
             }
         }
 
-        [HttpGet()]
-        public async Task<IActionResult> GetByEmployees()
-        {
-            try
-            {
-                var employee = await _employeeService.GetEmployeeByUserIdAsync(User.GetUserId(), true);
-                if (employee == null) return NoContent();
+        //[HttpGet()]
+        //public async Task<IActionResult> GetByEmployees()
+        //{
+        //    try
+        //    {
+        //        var employee = await _employeeService.GetEmployeeByIdAsync(User.GetUserId(), true);
+        //        if (employee == null) return NoContent();
 
-                return Ok(employee);
-            }
-            catch (Exception ex)
-            {
+        //        return Ok(employee);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar Employees. Erro: {ex.Message}");
-            }
-        }
+        //        return this.StatusCode(StatusCodes.Status500InternalServerError,
+        //            $"Erro ao tentar recuperar Employees. Erro: {ex.Message}");
+        //    }
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -84,13 +84,13 @@ namespace SADC.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(EmployeeAddDto model)
+        public async Task<IActionResult> Post(EmployeeDto model)
         {
             try
             {
-                var employee = await _employeeService.GetEmployeeByUserIdAsync(User.GetUserId(), false);
+                var employee = await _employeeService.GetEmployeeByIdAsync(model.Id);
                 if (employee == null)
-                    employee = await _employeeService.AddEmployees(User.GetUserId(), model);
+                    employee = await _employeeService.AddEmployees(model);
 
                 return Ok(employee);
             }
@@ -116,7 +116,7 @@ namespace SADC.API.Controllers
                     _util.DeleteImage(employee.ImageURL, _destiny);
                     employee.ImageURL = await _util.SaveImage(file, _destiny);
                 }
-                var employeeRetorno = await _employeeService.UpdateEmployee(employeeId, employee);
+                var employeeRetorno = await _employeeService.UpdateEmployee(employee);
 
                 return Ok(employeeRetorno);
             }
@@ -133,7 +133,7 @@ namespace SADC.API.Controllers
         {
             try
             {
-                var employee = await _employeeService.UpdateEmployee(User.GetUserId(), model);
+                var employee = await _employeeService.UpdateEmployee(model);
                 if (employee == null) return NoContent();
 
                 return Ok(employee);

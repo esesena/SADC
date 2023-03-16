@@ -38,7 +38,8 @@
           </div>
           <div class="text-center">
             <h3>
-              {{ returnEmpName(employee.name) }}<br><span class="font-weight-light">, {{ returnEmpName(employee.cpf) }}</span>
+              {{ employee.firstName + " " + employee.lastName }}<br><span class="font-weight-light">{{
+                returnEmpName(employee.function) }}</span>
             </h3>
             <div class="h5 font-weight-300">
               <i class="ni location_pin mr-2"></i>Bucharest, Romania
@@ -75,10 +76,10 @@
           <ng-container ngbNavItem>
             <a ngbNavLink>Dados do Funcionário</a>
             <ng-template ngbNavContent>
-              <div [ngClass]="{ 'col-md-8 pr-0': editMode, 'col-md-12': !editMode }">
+              <div class="col-md-12">
                 <div class="card-body">
                   <div class="card-header bg-transparent d-flex justify-content-between">
-                    <h3 class="mb-0">{{ returnEmpName(employee.name) }}</h3>
+                    <h3 class="mb-0">{{ returnEmpName(employee.firstName) }}</h3>
                   </div>
                   <form [formGroup]="form">
                     <div class="pl-lg-4">
@@ -87,8 +88,30 @@
                           <div class="form-group">
                             <label class="form-control-label" for="input-username">Nome</label>
                             <input type="text" class="form-control" id="exampleFormControlInput1"
-                              placeholder="Nome do Funcionário" [ngClass]="cssValidator(f.name)" formControlName="name"
-                              [(ngModel)]="employee.name">
+                              placeholder="Nome do Funcionário" [ngClass]="cssValidator(f.firstName)"
+                              formControlName="firstName" [(ngModel)]="employee.firstName">
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-username">Sobrenome</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                              placeholder="Sobrenome do Funcionário" [ngClass]="cssValidator(f.lastName)"
+                              formControlName="lastName" [(ngModel)]="employee.lastName">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-first-name">Data de Nascimento</label>
+                            <div class="input-group">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="birthDate"
+                                [(ngModel)]="employee.birthDate" ngbDatepicker #d="ngbDatepicker" [startDate]="{year: 2000, month: 1}" value="{{employee.birthDate | date:'dd/MM/yyyy'}}"/>
+                              <button class="btn btn-primary fa fa-calendar-alt" (click)="d.toggle()"
+                                type="button"></button>
+                            </div>
                           </div>
                         </div>
                         <div class="col-lg-6">
@@ -100,16 +123,15 @@
                           </div>
                         </div>
                       </div>
+
                       <div class="row">
                         <div class="col-lg-6">
                           <div class="form-group">
-                            <label class="form-control-label" for="input-first-name">Data de Nascimento</label>
-                            <div class="input-group">
-                              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="birthDate"
-                                [(ngModel)]="employee.birthDate" ngbDatepicker #d="ngbDatepicker" />
-                              <button class="btn btn-primary fa fa-calendar-alt" (click)="d.toggle()"
-                                type="button"></button>
-                            </div>
+                            <label>Fazenda</label>
+                            <select multiple formControlName="farmId" class="form-control" [(ngModel)]="employee.farmId"
+                              [ngClass]="cssValidator(f.farmId)">
+                              <option *ngFor="let farm of farms" [value]="farm.id">{{ farm.name }}</option>
+                            </select>
                           </div>
                         </div>
                         <div class="col-lg-6">
@@ -125,8 +147,19 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-email">Carga Horária</label>
+                            <input type="number" class="form-control" id="exampleFormControlInput1"
+                              placeholder="Carga Horária" [ngClass]="cssValidator(f.workload)"
+                              formControlName="workload" [(ngModel)]="employee.workload">
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
-                    <pre>Model: {{ employee | json }}</pre>
                     <hr class="my-4" />
                     <!-- Address -->
                     <h6 class="heading-small text-muted mb-4">Contact information</h6>
@@ -134,53 +167,50 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="form-control-label" for="input-address">Address</label>
+                            <label class="form-control-label" for="input-address">Endereço</label>
                             <input id="input-address" class="form-control form-control-alternative"
-                              placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                              type="text">
+                              placeholder="Endereço" type="text" [ngClass]="cssValidator(f.address)"
+                              formControlName="address" [(ngModel)]="employee.address">
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label class="form-control-label" for="input-city">City</label>
+                            <label class="form-control-label" for="input-city">Cidade</label>
                             <input type="text" id="input-city" class="form-control form-control-alternative"
-                              placeholder="City" value="New York">
+                              placeholder="Cidade" [ngClass]="cssValidator(f.city)" formControlName="city"
+                              [(ngModel)]="employee.city">
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label class="form-control-label" for="input-country">Country</label>
+                            <label class="form-control-label" for="input-country">Estado</label>
                             <input type="text" id="input-country" class="form-control form-control-alternative"
-                              placeholder="Country" value="United States">
+                              placeholder="Estado" [ngClass]="cssValidator(f.state)" formControlName="state"
+                              [(ngModel)]="employee.state">
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="form-group">
-                            <label class="form-control-label" for="input-country">Postal code</label>
+                            <label class="form-control-label" for="input-country">CEP</label>
                             <input type="number" id="input-postal-code" class="form-control form-control-alternative"
-                              placeholder="Postal code">
+                              placeholder="CEP" [ngClass]="cssValidator(f.cep)" formControlName="cep"
+                              [(ngModel)]="employee.cep">
                           </div>
                         </div>
                       </div>
                     </div>
                     <hr class="my-4" />
-                    <!-- Description -->
-                    <h6 class="heading-small text-muted mb-4">About me</h6>
-                    <div class="pl-lg-4">
-                      <div class="form-group">
-                        <label>About Me</label>
-                        <textarea rows="4" class="form-control form-control-alternative"
-                          placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-                      </div>
-                    </div>
+
+                    <pre>Model: {{ employee | json }}</pre>
+
                   </form>
                 </div>
               </div>
             </ng-template>
           </ng-container>
-          <ng-container ngbNavItem>
+          <ng-container ngbNavItem *ngIf="editMode">
             <a ngbNavLink *ngIf="isUser">Dados de Usuário</a>
             <ng-template ngbNavContent>
               <app-register></app-register>

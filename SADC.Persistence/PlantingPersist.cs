@@ -21,19 +21,18 @@ namespace SADC.Persistence
             _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public async Task<PageList<Planting>> GetAllPlantingsAsync(PageParams pageParams, bool includePlots = false)
+        public async Task<PageList<Planting>> GetAllPlantingsAsync(PageParams pageParams, bool includeFields = false)
         {
-            IQueryable<Planting> query = _context.Plantings;
+            IQueryable<Planting> query = _context.Plantings.Include(s => s.Seed)
+                             .Include(f => f.Farm)
+                             .Include(pf => pf.Fields)
+                             .ThenInclude(f => f.Field);
 
-            if (includePlots)
-            {
-                query = query.Include(p => p.Seed)
-                    .Include(p => p.PlantingPlot)
-                    .ThenInclude(pe => pe.Plot)
-                    .Where(p => (p.Harvest.ToLower().Contains(pageParams.Term.ToLower())) || 
-                                 p.Seed.Description.ToLower().Contains(pageParams.Term.ToLower()) || 
-                                 p.Fertilizing.ToLower().Contains(pageParams.Term.ToLower()));
-            }
+                query = query.AsNoTracking()
+                             .Where(p => (p.Harvest.ToLower().Contains(pageParams.Term.ToLower())) ||
+                                          p.Seed.Description.ToLower().Contains(pageParams.Term.ToLower()) ||
+                                          p.Fertilizing.ToLower().Contains(pageParams.Term.ToLower()))
+                             .OrderBy(p => p.Id);
 
             return await PageList<Planting>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
@@ -41,14 +40,27 @@ namespace SADC.Persistence
         public async Task<Planting> GetPlantingByIdAsync(int plantingId)
         {
             IQueryable<Planting> query = _context.Plantings
-                                        .Include(c => c.Seed)
-                                        .Include(p => p.PlantingPlot)
-                                        .ThenInclude(p => p.Plot);
+                                        .Include(s => s.Seed)
+                                        .Include(f => f.Farm)
+                                        .Include(pf => pf.Fields)
+                                        .ThenInclude(f => f.Field);
 
             query = query.AsNoTracking().OrderBy(e => e.Id)
             .Where(e => e.Id == plantingId);
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task AddPlantingField(int plantingId, List<int> fieldIds)
+        {
+            foreach (var field in fieldIds)
+            {
+                PlantingField f = new PlantingField();
+                f.PlantingId = plantingId;
+                f.FieldId = field;
+                _context.Add(f);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

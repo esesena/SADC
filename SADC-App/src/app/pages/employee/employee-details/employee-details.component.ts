@@ -1,10 +1,13 @@
+import { PaginatedResult, Pagination } from './../../../models/Pagination';
+import { FarmService } from './../../../services/farm.service';
+import { Farm } from './../../../models/Farm';
 import { UserUpdate } from "./../../../models/identity/UserUpdate";
 import { environment } from "./../../../../environments/environment";
 import { Employee } from "./../../../models/Employee";
 import { ToastrService } from "ngx-toastr";
 import { EmployeeService } from "./../../../services/employee.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
@@ -14,21 +17,24 @@ import {
 } from "@angular/forms";
 import { NgbCalendar, NgbDateAdapter } from "@ng-bootstrap/ng-bootstrap";
 
-
 @Component({
   selector: "app-employee-details",
   templateUrl: "./employee-details.component.html",
   styleUrls: ["./employee-details.component.scss"],
 })
 export class EmployeeDetailsComponent implements OnInit {
+  @Output() changeFormValue = new EventEmitter();
+
   employeeId: number;
   employee = {} as Employee;
   form: FormGroup;
   saveState = "post";
   file: File;
   imageURL = "assets/img/brand/upload.png";
-  lastPlot = { id: 0, name: "", indice: 0 };
+  lastField = { id: 0, name: "", indice: 0 };
   public user = {} as UserUpdate;
+  farms: Farm[] = [];
+  public pagination = {} as Pagination;
 
   get editMode(): boolean {
     return this.saveState === "put";
@@ -50,25 +56,21 @@ export class EmployeeDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
     private employeeService: EmployeeService,
+    private farmService: FarmService,
     private toastr: ToastrService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.loadEmployee();
     this.validation();
+    this.loadFarms();
   }
 
   public validation(): void {
     this.form = this.fb.group({
-      name: [
-        "",
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(50),
-        ],
-      ],
+      firstName: ["", [Validators.required]],
+      lastName: ["", [Validators.required]],
       cpf: ["", Validators.required],
       function: ["", Validators.required],
       workload: ["", Validators.required],
@@ -80,8 +82,23 @@ export class EmployeeDetailsComponent implements OnInit {
       imageURL: ["", Validators.required],
       userId: ["", Validators.required],
       user: ["", Validators.required],
-      farm: ["", Validators.required],
+      farmId: ["", Validators.required],
     });
+  }
+
+  public loadFarms(): void {
+    this.farmService
+      .getFarms(this.pagination.currentPage, this.pagination.itemsPerPage)
+      .subscribe(
+        (paginatedResult: PaginatedResult<Farm[]>) => {
+          this.farms = paginatedResult.result;
+          this.pagination = paginatedResult.pagination;
+          console.log("Fazendas: ", this.farms);
+        },
+        (error: any) => {
+          this.toastr.error("Erro ao Carregar os Fazendas", "Erro!");
+        }
+      );
   }
 
   public cssValidator(campoForm: FormControl | AbstractControl): any {
@@ -91,7 +108,7 @@ export class EmployeeDetailsComponent implements OnInit {
   public returnEmpName(name: string): string {
     return name === null || name === "" ? "Nome do Funcionário" : name;
   }
-  
+
   public loadEmployee(): void {
     this.employeeId = +this.activatedRouter.snapshot.paramMap.get("id");
 
